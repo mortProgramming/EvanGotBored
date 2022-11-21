@@ -109,10 +109,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         odometry.update(Rotation2d.fromDegrees(gyroscope.getFusedHeading()),
-                new SwerveModuleState(frontLeftModule.getDriveVelocity(), new Rotation2d(frontLeftModule.getSteerAngle())),
-                new SwerveModuleState(frontRightModule.getDriveVelocity(), new Rotation2d(frontRightModule.getSteerAngle())),
-                new SwerveModuleState(backLeftModule.getDriveVelocity(), new Rotation2d(backLeftModule.getSteerAngle())),
-                new SwerveModuleState(backRightModule.getDriveVelocity(), new Rotation2d(backRightModule.getSteerAngle()))
+                frontLeftModule.getState(),
+                frontRightModule.getState(),
+                backLeftModule.getState(),
+                backRightModule.getState()
         );
 
         SwerveModuleState[] states = kinematics.toSwerveModuleStates(chassisSpeeds);
