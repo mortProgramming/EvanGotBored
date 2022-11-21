@@ -6,4 +6,4 @@ bin/
 
 # Intellij Project Files
 /.idea/
-/.vscode/
+**/.vscode/

@@ -3,7 +3,8 @@ package com.swervedrivespecialties.examples.mk3testchassis;
 import com.swervedrivespecialties.examples.mk3testchassis.commands.DriveCommand;
 import com.swervedrivespecialties.examples.mk3testchassis.subsystems.DrivetrainSubsystem;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.button.Button;
+import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 public class RobotContainer {
     private final DrivetrainSubsystem drivetrain = new DrivetrainSubsystem();
@@ -20,8 +21,8 @@ public class RobotContainer {
                 () -> -modifyAxis(controller.getRightX())
         ));
 
-        new Button(controller::getBackButtonPressed)
-                .whenPressed(drivetrain::zeroGyroscope);
+        new Trigger(controller::getBackButtonPressed)
+                .onTrue(new RunCommand(drivetrain::zeroGyroscope));
     }
 
     public DrivetrainSubsystem getDrivetrain() {
