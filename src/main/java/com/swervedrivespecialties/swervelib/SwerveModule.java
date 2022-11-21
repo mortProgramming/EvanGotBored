@@ -1,6 +1,7 @@
 package com.swervedrivespecialties.swervelib;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 
 public interface SwerveModule {
@@ -32,7 +33,11 @@ public interface SwerveModule {
     double getSteerAngle();
 
     default SwerveModuleState getState() {
-        return new SwerveModuleState(getDriveVelocity(), new Rotation2d(getSteerAngle()));
+        return new SwerveModuleState(getDriveVelocity(), Rotation2d.fromRadians(getSteerAngle()));
+    }
+
+    default SwerveModulePosition getPosition() {
+        return new SwerveModulePosition(getDriveDistance(), Rotation2d.fromRadians(getSteerAngle()));
     }
 
     void set(double driveVoltage, double steerAngle);
