@@ -7,6 +7,8 @@ import com.swervedrivespecialties.swervelib.DriveController;
 import com.swervedrivespecialties.swervelib.DriveControllerFactory;
 import com.swervedrivespecialties.swervelib.MechanicalConfiguration;
 
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
+
 import static com.swervedrivespecialties.swervelib.rev.RevUtils.checkNeoError;
 
 public final class NeoDriveControllerFactoryBuilder {
@@ -76,7 +78,7 @@ public final class NeoDriveControllerFactoryBuilder {
         }
 
         @Override
-        public Object getDriveMotor() {
+        public MotorController getDriveMotor() {
             return this.motor;
         }
 

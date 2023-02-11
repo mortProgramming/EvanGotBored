@@ -7,6 +7,8 @@ import com.swervedrivespecialties.swervelib.DriveController;
 import com.swervedrivespecialties.swervelib.DriveControllerFactory;
 import com.swervedrivespecialties.swervelib.MechanicalConfiguration;
 
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
+
 public final class Falcon500DriveControllerFactoryBuilder {
     private static final double TICKS_PER_ROTATION = 2048.0;
 
@@ -92,7 +94,7 @@ public final class Falcon500DriveControllerFactoryBuilder {
         }
 
         @Override
-        public Object getDriveMotor() {
+        public MotorController getDriveMotor() {
             return this.motor;
         }
 

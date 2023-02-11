@@ -5,6 +5,8 @@ import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel;
 import com.swervedrivespecialties.swervelib.*;
+
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardContainer;
 
 import static com.swervedrivespecialties.swervelib.rev.RevUtils.checkNeoError;
@@ -120,7 +122,7 @@ public final class NeoSteerControllerFactoryBuilder {
         }
 
         @Override
-        public Object getSteerMotor() {
+        public MotorController getSteerMotor() {
             return this.motor;
         }
 
