@@ -8,7 +8,7 @@ targetCompatibility = JavaVersion.VERSION_11
 
 allprojects {
     group 'com.swervedrivespecialties'
-    version '2023.1.2.1'
+    version '2023.1.2.2'
 
     repositories {
         mavenCentral()
@@ -24,16 +24,16 @@ allprojects {
 }
 
 dependencies {
-    implementation 'edu.wpi.first.wpilibj:wpilibj-java:2023.2.1'
-    implementation 'edu.wpi.first.wpiutil:wpiutil-java:2023.2.1'
-    implementation 'edu.wpi.first.wpimath:wpimath-java:2023.2.1'
+    implementation "edu.wpi.first.wpilibj:wpilibj-java:${wpilib_version}"
+    implementation "edu.wpi.first.wpiutil:wpiutil-java:${wpilib_version}"
+    implementation "edu.wpi.first.wpimath:wpimath-java:${wpilib_version}"
 
     // CTRE is implementation because it is not a hard requirement
-    implementation 'com.ctre.phoenix:api-java:5.30.3'
-    implementation 'com.ctre.phoenix:wpiapi-java:5.30.3'
+    implementation "com.ctre.phoenix:api-java:${ctre_phoenix_version}"
+    implementation "com.ctre.phoenix:wpiapi-java:${ctre_phoenix_version}"
 
     // REV is implementation because it is not a hard requirement
-    implementation 'com.revrobotics.frc:REVLib-java:2023.1.2'
+    implementation "com.revrobotics.frc:REVLib-java:${revlib_version}"
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
