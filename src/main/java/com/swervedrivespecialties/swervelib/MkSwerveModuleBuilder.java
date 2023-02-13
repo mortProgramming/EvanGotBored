@@ -84,16 +84,39 @@ public class MkSwerveModuleBuilder {
         this.useDefaultSteerConfiguration = false;
     }
 
+    /**
+     * (Optional) Specify a shuffleboard container in which to print debug values
+     * for the swerve module.
+     * 
+     * @param container the shuffleboard container
+     * @return the builder
+     */
     public MkSwerveModuleBuilder withLayout(ShuffleboardLayout container) {
         this.container = container;
         return this;
     }
 
+    /**
+     * Specify a gear ratio to use with this swerve module.
+     * <p>
+     * Presets for SDS modules can be found in {@link SdsModuleConfigurations}.
+     * 
+     * @param mechConfig the swerve module's mechanical configuration
+     * @return the builder
+     */
     public MkSwerveModuleBuilder withGearRatio(MechanicalConfiguration mechConfig) {
         this.mechConfig = mechConfig;
         return this;
     }
 
+    /**
+     * Specify details about the drive motor.
+     * 
+     * @param motorType the {@link MotorType} of the motor
+     * @param motorPort the CAN ID of the motor
+     * @param motorCanbus the canbus of the motor, "" for the roboRIO bus
+     * @return the builder
+     */
     public MkSwerveModuleBuilder withDriveMotor(MotorType motorType, int motorPort, String motorCanbus) {
         switch (motorType) {
             case FALCON:
@@ -110,10 +133,26 @@ public class MkSwerveModuleBuilder {
         return this;
     }
 
+    /**
+     * Specify details about the drive motor. The drive motor must be on the
+     * roboRIO canbus.
+     * 
+     * @param motorType the {@link MotorType} of the motor
+     * @param motorPort the CAN ID of the motor
+     * @return the builder
+     */
     public MkSwerveModuleBuilder withDriveMotor(MotorType motorType, int motorPort) {
         return this.withDriveMotor(motorType, motorPort, "");
     }
 
+    /**
+     * Specify details about the steer motor.
+     * 
+     * @param motorType the {@link MotorType} of the motor
+     * @param motorPort the CAN ID of the motor
+     * @param motorCanbus the canbus of the motor, "" for the roboRIO bus
+     * @return the builder
+     */
     public MkSwerveModuleBuilder withSteerMotor(MotorType motorType, int motorPort, String motorCanbus) {
         switch (motorType) {
             case FALCON:
@@ -137,25 +176,58 @@ public class MkSwerveModuleBuilder {
         return this;
     }
 
+    /**
+     * Specify details about the steer motor. The steer motor must be on the
+     * roboRIO canbus.
+     * 
+     * @param motorType the {@link MotorType} of the motor
+     * @param motorPort the CAN ID of the motor
+     * @return the builder
+     */
     public MkSwerveModuleBuilder withSteerMotor(MotorType motorType, int motorPort) {
         return this.withSteerMotor(motorType, motorPort, "");
     }
 
+    /**
+     * Specify details about the module's absolute encoder.
+     * 
+     * @param encoderPort the CAN ID of the encoder
+     * @param canbus the canbus of the encoder, "" for the roboRIO bus
+     * @return the builder
+     */
     public MkSwerveModuleBuilder withSteerEncoderPort(int encoderPort, String canbus) {
         this.steerEncoderPort = encoderPort;
         this.steerEncoderCanbus = canbus;
         return this;
     }
 
+    /**
+     * Specify details about the module's absolute encoder. The encoder must 
+     * be on the roboRIO canbus.
+     * 
+     * @param encoderPort the CAN ID of the encoer
+     * @return the builder
+     */
     public MkSwerveModuleBuilder withSteerEncoderPort(int encoderPort) {
         return this.withSteerEncoderPort(encoderPort, "");
     }
 
+    /**
+     * Specify the module's absolute encoder offset.
+     * 
+     * @param offset the offset, in radians, to apply to the absolute encoder's position
+     * @return the builder
+     */
     public MkSwerveModuleBuilder withSteerOffset(double offset) {
         this.steerOffset = offset;
         return this;
     }
 
+    /**
+     * Build the created swerve module.
+     * 
+     * @return the built swerve module
+     */
     public SwerveModule build() {
         if (mechConfig == null) {
             throw new RuntimeException("Mechanical Config should not be null!");
