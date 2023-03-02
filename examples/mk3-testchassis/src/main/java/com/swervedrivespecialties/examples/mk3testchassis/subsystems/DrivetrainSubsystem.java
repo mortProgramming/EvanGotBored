@@ -2,7 +2,9 @@ package com.swervedrivespecialties.examples.mk3testchassis.subsystems;
 
 import com.ctre.phoenix.sensors.PigeonIMU;
 import com.swervedrivespecialties.examples.mk3testchassis.Constants;
-import com.swervedrivespecialties.swervelib.Mk3SwerveModuleHelper;
+import com.swervedrivespecialties.swervelib.MkSwerveModuleBuilder;
+import com.swervedrivespecialties.swervelib.MotorType;
+import com.swervedrivespecialties.swervelib.SdsModuleConfigurations;
 import com.swervedrivespecialties.swervelib.SwerveModule;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -43,48 +45,54 @@ public class DrivetrainSubsystem extends SubsystemBase {
     public DrivetrainSubsystem() {
         ShuffleboardTab shuffleboardTab = Shuffleboard.getTab("Drivetrain");
 
-        frontLeftModule = Mk3SwerveModuleHelper.createNeo(
-                shuffleboardTab.getLayout("Front Left Module", BuiltInLayouts.kList)
+        frontLeftModule = new MkSwerveModuleBuilder()
+                .withLayout(shuffleboardTab.getLayout("Front Left Module", BuiltInLayouts.kList)
                         .withSize(2, 4)
-                        .withPosition(0, 0),
-                Mk3SwerveModuleHelper.GearRatio.STANDARD,
-                Constants.FRONT_LEFT_MODULE_DRIVE_MOTOR,
-                Constants.FRONT_LEFT_MODULE_STEER_MOTOR,
-                Constants.FRONT_LEFT_MODULE_STEER_ENCODER,
-                Constants.FRONT_LEFT_MODULE_STEER_OFFSET
-        );
+                        .withPosition(0, 0))
+                .withGearRatio(SdsModuleConfigurations.MK3_STANDARD)
+                .withDriveMotor(MotorType.NEO, Constants.FRONT_LEFT_MODULE_DRIVE_MOTOR)
+                .withSteerMotor(MotorType.NEO, Constants.FRONT_LEFT_MODULE_STEER_MOTOR)
+                .withSteerEncoderPort(Constants.FRONT_LEFT_MODULE_STEER_ENCODER)
+                .withSteerOffset(Constants.FRONT_LEFT_MODULE_STEER_OFFSET)
+                .build();
 
-        frontRightModule = Mk3SwerveModuleHelper.createNeo(
-                shuffleboardTab.getLayout("Front Right Module", BuiltInLayouts.kList)
+        frontRightModule = new MkSwerveModuleBuilder()
+                .withLayout(shuffleboardTab.getLayout("Front Right Module", BuiltInLayouts.kList)
                         .withSize(2, 4)
-                        .withPosition(2, 0),
-                Mk3SwerveModuleHelper.GearRatio.STANDARD,
-                Constants.FRONT_RIGHT_MODULE_DRIVE_MOTOR,
-                Constants.FRONT_RIGHT_MODULE_STEER_MOTOR,
-                Constants.FRONT_RIGHT_MODULE_STEER_ENCODER,
-                Constants.FRONT_RIGHT_MODULE_STEER_OFFSET
-        );
+                        .withPosition(2, 0))
+                .withGearRatio(SdsModuleConfigurations.MK3_STANDARD)
+                .withDriveMotor(MotorType.NEO, Constants.FRONT_RIGHT_MODULE_DRIVE_MOTOR)
+                .withSteerMotor(MotorType.NEO, Constants.FRONT_RIGHT_MODULE_STEER_MOTOR)
+                .withSteerEncoderPort(Constants.FRONT_RIGHT_MODULE_STEER_ENCODER)
+                .withSteerOffset(Constants.FRONT_RIGHT_MODULE_STEER_OFFSET)
+                .build();
 
-        backLeftModule = Mk3SwerveModuleHelper.createNeo(
-                shuffleboardTab.getLayout("Back Left Module", BuiltInLayouts.kList)
+        backLeftModule = new MkSwerveModuleBuilder()
+                .withLayout(shuffleboardTab.getLayout("Back Left Module", BuiltInLayouts.kList)
                         .withSize(2, 4)
-                        .withPosition(4, 0),
-                Mk3SwerveModuleHelper.GearRatio.STANDARD,
-                Constants.BACK_LEFT_MODULE_DRIVE_MOTOR,
-                Constants.BACK_LEFT_MODULE_STEER_MOTOR,
-                Constants.BACK_LEFT_MODULE_STEER_ENCODER,
-                Constants.BACK_LEFT_MODULE_STEER_OFFSET
-        );
+                        .withPosition(4, 0))
+                .withGearRatio(SdsModuleConfigurations.MK3_STANDARD)
+                .withDriveMotor(MotorType.NEO, Constants.BACK_LEFT_MODULE_DRIVE_MOTOR)
+                .withSteerMotor(MotorType.NEO, Constants.BACK_LEFT_MODULE_STEER_MOTOR)
+                .withSteerEncoderPort(Constants.BACK_LEFT_MODULE_STEER_ENCODER)
+                .withSteerOffset(Constants.BACK_LEFT_MODULE_STEER_OFFSET)
+                .build();
 
-        backRightModule = Mk3SwerveModuleHelper.createNeo(
-                shuffleboardTab.getLayout("Back Right Module", BuiltInLayouts.kList)
+        backRightModule = new MkSwerveModuleBuilder()
+                .withLayout(shuffleboardTab.getLayout("Back Right Module", BuiltInLayouts.kList)
                         .withSize(2, 4)
-                        .withPosition(6, 0),
-                Mk3SwerveModuleHelper.GearRatio.STANDARD,
-                Constants.BACK_RIGHT_MODULE_DRIVE_MOTOR,
-                Constants.BACK_RIGHT_MODULE_STEER_MOTOR,
-                Constants.BACK_RIGHT_MODULE_STEER_ENCODER,
-                Constants.BACK_RIGHT_MODULE_STEER_OFFSET
+                        .withPosition(6, 0))
+                .withGearRatio(SdsModuleConfigurations.MK3_STANDARD)
+                .withDriveMotor(MotorType.NEO, Constants.BACK_RIGHT_MODULE_DRIVE_MOTOR)
+                .withSteerMotor(MotorType.NEO, Constants.BACK_RIGHT_MODULE_STEER_MOTOR)
+                .withSteerEncoderPort(Constants.BACK_RIGHT_MODULE_STEER_ENCODER)
+                .withSteerOffset(Constants.BACK_RIGHT_MODULE_STEER_OFFSET)
+                .build();
+
+        odometry = new SwerveDriveOdometry(
+                kinematics,
+                Rotation2d.fromDegrees(gyroscope.getFusedHeading()),
+                new SwerveModulePosition[]{ frontLeftModule.getPosition(), frontRightModule.getPosition(), backLeftModule.getPosition(), backRightModule.getPosition() }
         );
 
         odometry = new SwerveDriveOdometry(

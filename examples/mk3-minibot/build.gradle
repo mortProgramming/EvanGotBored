@@ -1,7 +1,7 @@
 plugins {
     id 'application'
     id 'com.github.johnrengelman.shadow'
-    id 'edu.wpi.first.GradleRIO' version "2023.1.1-beta-4"
+    id 'edu.wpi.first.GradleRIO' version "2023.2.1"
 }
 
 application {

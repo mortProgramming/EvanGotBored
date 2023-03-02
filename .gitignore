@@ -7,3 +7,8 @@ bin/
 # Intellij Project Files
 /.idea/
 **/.vscode/
+
+**/.settings/
+.classpath
+.project
+
