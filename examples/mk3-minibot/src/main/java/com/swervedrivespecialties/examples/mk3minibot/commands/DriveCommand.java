@@ -2,11 +2,11 @@ package com.swervedrivespecialties.examples.mk3minibot.commands;
 
 import com.swervedrivespecialties.examples.mk3minibot.subsystems.DrivetrainSubsystem;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 
 import java.util.function.DoubleSupplier;
 
-public class DriveCommand extends CommandBase {
+public class DriveCommand extends Command {
     private final DrivetrainSubsystem drivetrain;
     private final DoubleSupplier translationXSupplier;
     private final DoubleSupplier translationYSupplier;

@@ -3,8 +3,10 @@ plugins {
     id 'maven-publish'
 }
 
-sourceCompatibility = JavaVersion.VERSION_11
-targetCompatibility = JavaVersion.VERSION_11
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
 
 allprojects {
     group 'com.swervedrivespecialties'
@@ -27,10 +29,11 @@ dependencies {
     implementation "edu.wpi.first.wpilibj:wpilibj-java:${wpilib_version}"
     implementation "edu.wpi.first.wpiutil:wpiutil-java:${wpilib_version}"
     implementation "edu.wpi.first.wpimath:wpimath-java:${wpilib_version}"
+    implementation "edu.wpi.first.wpiunits:wpiunits-java:${wpilib_version}"
 
     // CTRE is implementation because it is not a hard requirement
-    implementation "com.ctre.phoenix:api-java:${ctre_phoenix_version}"
-    implementation "com.ctre.phoenix:wpiapi-java:${ctre_phoenix_version}"
+    // implementation "com.ctre.phoenix6:api-java:${ctre_phoenix_version}"
+    implementation "com.ctre.phoenix6:wpiapi-java:${ctre_phoenix_version}"
 
     // REV is implementation because it is not a hard requirement
     implementation "com.revrobotics.frc:REVLib-java:${revlib_version}"
