@@ -137,7 +137,7 @@ public final class Falcon500SteerControllerFactoryBuilder {
             }
 
             motorConfiguration.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RotorSensor;
-            motorConfiguration.Feedback.SensorToMechanismRatio = -1; // TODO: make this sensorPositionCoefficient
+            // motorConfiguration.Feedback.SensorToMechanismRatio = -1; // TODO: make this sensorPositionCoefficient
 
             motorConfiguration.MotorOutput.Inverted = mechConfiguration.isSteerInverted() ? InvertedValue.CounterClockwise_Positive : InvertedValue.Clockwise_Positive;
 

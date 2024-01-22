@@ -57,7 +57,7 @@ public final class Falcon500DriveControllerFactoryBuilder {
                 motorConfiguration.CurrentLimits.SupplyCurrentLimitEnable = true;
             }
 
-            motorConfiguration.Feedback.SensorToMechanismRatio = -1; // TODO: make this sensorPositionCoefficient
+            // motorConfiguration.Feedback.SensorToMechanismRatio = -1; // TODO: make this sensorPositionCoefficient
 
             motorConfiguration.MotorOutput.Inverted = mechConfiguration.isDriveInverted() ? InvertedValue.Clockwise_Positive : InvertedValue.CounterClockwise_Positive;
 
