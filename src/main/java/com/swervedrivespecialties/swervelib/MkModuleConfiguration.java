@@ -129,7 +129,7 @@ public class MkModuleConfiguration {
 
     public static MkModuleConfiguration getDefaultSteerFalcon500() {
         MkModuleConfiguration config = new MkModuleConfiguration();
-        config.setSteerPID(0.2, 0.0, 0.1);
+        config.setSteerPID(0.2, 0.0, 0.01);
         return config;
     }
 

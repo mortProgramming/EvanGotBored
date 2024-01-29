@@ -1,8 +1,9 @@
 package com.swervedrivespecialties.swervelib.ctre;
 
-import com.ctre.phoenix.motorcontrol.*;
-import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.InvertedValue;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.swervedrivespecialties.swervelib.DriveController;
 import com.swervedrivespecialties.swervelib.DriveControllerFactory;
 import com.swervedrivespecialties.swervelib.MechanicalConfiguration;
@@ -10,9 +11,9 @@ import com.swervedrivespecialties.swervelib.MechanicalConfiguration;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 
 public final class Falcon500DriveControllerFactoryBuilder {
-    private static final double TICKS_PER_ROTATION = 2048.0;
+    // private static final double TICKS_PER_ROTATION = 2048.0;
 
-    private static final int CAN_TIMEOUT_MS = 250;
+    private static final double CAN_TIMEOUT_SEC = 0.25;
     private static final int STATUS_FRAME_GENERAL_PERIOD_MS = 250;
 
     private double nominalVoltage = Double.NaN;
@@ -45,36 +46,44 @@ public final class Falcon500DriveControllerFactoryBuilder {
         public ControllerImplementation create(Integer id, String canbus, MechanicalConfiguration mechConfiguration) {
             TalonFXConfiguration motorConfiguration = new TalonFXConfiguration();
 
-            double sensorPositionCoefficient = Math.PI * mechConfiguration.getWheelDiameter() * mechConfiguration.getDriveReduction() / TICKS_PER_ROTATION;
+            double sensorPositionCoefficient = Math.PI * mechConfiguration.getWheelDiameter() * mechConfiguration.getDriveReduction(); // / TICKS_PER_ROTATION;
 
-            if (hasVoltageCompensation()) {
-                motorConfiguration.voltageCompSaturation = nominalVoltage;
-            }
+            // if (hasVoltageCompensation()) {
+            //     motorConfiguration.voltageCompSaturation = nominalVoltage;
+            // }
 
             if (hasCurrentLimit()) {
-                motorConfiguration.supplyCurrLimit.currentLimit = currentLimit;
-                motorConfiguration.supplyCurrLimit.enable = true;
+                motorConfiguration.CurrentLimits.SupplyCurrentLimit = currentLimit;
+                motorConfiguration.CurrentLimits.SupplyCurrentLimitEnable = true;
             }
 
-            WPI_TalonFX motor = new WPI_TalonFX(id, canbus);
-            CtreUtils.checkCtreError(motor.configAllSettings(motorConfiguration), "Failed to configure Falcon 500");
+            // motorConfiguration.Feedback.SensorToMechanismRatio = -1; // TODO: make this sensorPositionCoefficient
 
-            if (hasVoltageCompensation()) {
-                // Enable voltage compensation
-                motor.enableVoltageCompensation(true);
-            }
+            motorConfiguration.MotorOutput.Inverted = mechConfiguration.isDriveInverted() ? InvertedValue.Clockwise_Positive : InvertedValue.CounterClockwise_Positive;
 
-            motor.setNeutralMode(NeutralMode.Brake);
+            TalonFX motor = new TalonFX(id, canbus);
+            CtreUtils.checkCtreError(motor.getConfigurator().apply(motorConfiguration), "Failed to configure Falcon 500");
 
-            motor.setInverted(mechConfiguration.isDriveInverted() ? TalonFXInvertType.Clockwise : TalonFXInvertType.CounterClockwise);
-            motor.setSensorPhase(true);
+            // if (hasVoltageCompensation()) {
+            //     // Enable voltage compensation
+            //     motor.enableVoltageCompensation(true);
+            // }
+
+            motor.setNeutralMode(NeutralModeValue.Brake);
+            // motor.setSensorPhase(true); // moved above to SensorToMechanismRatio
 
             // Reduce CAN status frame rates
             CtreUtils.checkCtreError(
-                    motor.setStatusFramePeriod(
-                            StatusFrameEnhanced.Status_1_General,
-                            STATUS_FRAME_GENERAL_PERIOD_MS,
-                            CAN_TIMEOUT_MS
+                    motor.getPosition().setUpdateFrequency(
+                            1000.0 / STATUS_FRAME_GENERAL_PERIOD_MS, // Hz
+                            CAN_TIMEOUT_SEC
+                    ),
+                    "Failed to configure Falcon status frame period"
+            );
+            CtreUtils.checkCtreError(
+                    motor.getVelocity().setUpdateFrequency(
+                            1000.0 / STATUS_FRAME_GENERAL_PERIOD_MS, // Hz
+                            CAN_TIMEOUT_SEC
                     ),
                     "Failed to configure Falcon status frame period"
             );
@@ -84,11 +93,11 @@ public final class Falcon500DriveControllerFactoryBuilder {
     }
 
     private class ControllerImplementation implements DriveController {
-        private final WPI_TalonFX motor;
+        private final TalonFX motor;
         private final double sensorPositionCoefficient;
-        private final double nominalVoltage = hasVoltageCompensation() ? Falcon500DriveControllerFactoryBuilder.this.nominalVoltage : 12.0;
+        // private final double nominalVoltage = hasVoltageCompensation() ? Falcon500DriveControllerFactoryBuilder.this.nominalVoltage : 12.0;
 
-        private ControllerImplementation(WPI_TalonFX motor, double sensorPositionCoefficient) {
+        private ControllerImplementation(TalonFX motor, double sensorPositionCoefficient) {
             this.motor = motor;
             this.sensorPositionCoefficient = sensorPositionCoefficient;
         }
@@ -100,18 +109,21 @@ public final class Falcon500DriveControllerFactoryBuilder {
 
         @Override
         public void setReferenceVoltage(double voltage) {
-            motor.set(TalonFXControlMode.PercentOutput, voltage / nominalVoltage);
+            // motor.set(TalonFXControlMode.PercentOutput, voltage / nominalVoltage);
+            motor.setVoltage(voltage);
         }
 
         @Override
         public double getStateVelocity() {
             // Multiply to 10 to convert from m/100ms to m/s
-            return motor.getSelectedSensorVelocity() * sensorPositionCoefficient * 10.0;
+            // return motor.getSelectedSensorVelocity() * sensorPositionCoefficient * 10.0;
+            return motor.getVelocity().getValue() * sensorPositionCoefficient;
         }
 
         @Override
         public double getStateDistance() {
-            return motor.getSelectedSensorPosition() * sensorPositionCoefficient;
+            // return motor.getSelectedSensorPosition() * sensorPositionCoefficient;
+            return motor.getPosition().getValue() * sensorPositionCoefficient;
         }
     }
 }

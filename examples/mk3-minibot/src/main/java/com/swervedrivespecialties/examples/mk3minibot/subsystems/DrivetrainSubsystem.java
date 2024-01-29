@@ -1,6 +1,6 @@
 package com.swervedrivespecialties.examples.mk3minibot.subsystems;
 
-import com.ctre.phoenix.sensors.PigeonIMU;
+import com.ctre.phoenix6.hardware.Pigeon2;
 import com.swervedrivespecialties.examples.mk3minibot.Constants;
 import com.swervedrivespecialties.swervelib.MkSwerveModuleBuilder;
 import com.swervedrivespecialties.swervelib.MotorType;
@@ -30,7 +30,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     private final SwerveModule backLeftModule;
     private final SwerveModule backRightModule;
 
-    private final PigeonIMU gyroscope = new PigeonIMU(Constants.DRIVETRAIN_PIGEON_ID);
+    private final Pigeon2 gyroscope = new Pigeon2(Constants.DRIVETRAIN_PIGEON_ID);
 
     private final SwerveDriveKinematics kinematics = new SwerveDriveKinematics(
             new Translation2d(Constants.DRIVETRAIN_TRACKWIDTH_METERS / 2.0, Constants.DRIVETRAIN_WHEELBASE_METERS / 2.0),
@@ -91,7 +91,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
         odometry = new SwerveDriveOdometry(
                 kinematics,
-                Rotation2d.fromDegrees(gyroscope.getFusedHeading()),
+                Rotation2d.fromDegrees(gyroscope.getAngle()),
                 new SwerveModulePosition[]{ frontLeftModule.getPosition(), frontRightModule.getPosition(), backLeftModule.getPosition(), backRightModule.getPosition() }
         );
 
@@ -102,7 +102,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
     public void zeroGyroscope() {
         odometry.resetPosition(
-                Rotation2d.fromDegrees(gyroscope.getFusedHeading()),
+                Rotation2d.fromDegrees(gyroscope.getAngle()),
                 new SwerveModulePosition[]{ frontLeftModule.getPosition(), frontRightModule.getPosition(), backLeftModule.getPosition(), backRightModule.getPosition() },
                 new Pose2d(odometry.getPoseMeters().getTranslation(), Rotation2d.fromDegrees(0.0))
         );
@@ -119,7 +119,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         odometry.update(
-                Rotation2d.fromDegrees(gyroscope.getFusedHeading()),
+                Rotation2d.fromDegrees(gyroscope.getAngle()),
                 new SwerveModulePosition[]{ frontLeftModule.getPosition(), frontRightModule.getPosition(), backLeftModule.getPosition(), backRightModule.getPosition() }
         );
 
