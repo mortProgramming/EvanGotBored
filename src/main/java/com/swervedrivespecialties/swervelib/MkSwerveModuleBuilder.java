@@ -7,6 +7,25 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 
 public class MkSwerveModuleBuilder {
 
+    private static DriveControllerFactory<?, Integer> getKrakenx60DriveFactory(MkModuleConfiguration configuration) {
+        return new Krakenx60DriveControllerFactoryBuilder()
+                .withVoltageCompensation(configuration.getNominalVoltage())
+                .withCurrentLimit(configuration.getDriveCurrentLimit())
+                .build();
+    }
+
+    private static SteerControllerFactory<?, SteerConfiguration<CanCoderAbsoluteConfiguration>> getKrakenx60SteerFactory(MkModuleConfiguration configuration) {
+        return new Krakenx60SteerControllerFactoryBuilder()
+                .withVoltageCompensation(configuration.getNominalVoltage())
+                .withPidConstants(configuration.getSteerKP(), configuration.getSteerKI(), configuration.getSteerKD())
+                .withMotionMagic(configuration.getSteerMMkV(), configuration.getSteerMMkA(),
+                        configuration.getSteerMMkS())
+                .withCurrentLimit(configuration.getSteerCurrentLimit())
+                .build(new CanCoderFactoryBuilder()
+                        .withReadingUpdatePeriod(100)
+                        .build());
+    }
+
     private static DriveControllerFactory<?, Integer> getFalcon500DriveFactory(MkModuleConfiguration configuration) {
         return new Falcon500DriveControllerFactoryBuilder()
                 .withVoltageCompensation(configuration.getNominalVoltage())
@@ -73,6 +92,7 @@ public class MkSwerveModuleBuilder {
      * Creates a new swerve module builder.
      * <p>
      * Recommended values to pass in are
+     * {@link MkModuleConfiguration#getDefaultSteerKrakenx60()} or
      * {@link MkModuleConfiguration#getDefaultSteerFalcon500()} or
      * {@link MkModuleConfiguration#getDefaultSteerNEO()}, but you can use any custom module
      * values by instantiating a new {@link MkModuleConfiguration}.
@@ -119,6 +139,9 @@ public class MkSwerveModuleBuilder {
      */
     public MkSwerveModuleBuilder withDriveMotor(MotorType motorType, int motorPort, String motorCanbus) {
         switch (motorType) {
+            case KRAKEN:
+                this.driveFactory = getKrakenx60DriveFactory(this.configuration);
+                break;
             case FALCON:
                 this.driveFactory = getFalcon500DriveFactory(this.configuration);
                 break;
@@ -155,6 +178,12 @@ public class MkSwerveModuleBuilder {
      */
     public MkSwerveModuleBuilder withSteerMotor(MotorType motorType, int motorPort, String motorCanbus) {
         switch (motorType) {
+            case KRAKEN:
+                if (this.useDefaultSteerConfiguration)
+                    this.steerFactory = getKrakenx60SteerFactory(MkModuleConfiguration.getDefaultSteerKrakenx60());
+                else
+                    this.steerFactory = getKrakenx60SteerFactory(this.configuration);
+                break;
             case FALCON:
                 if (this.useDefaultSteerConfiguration)
                     this.steerFactory = getFalcon500SteerFactory(MkModuleConfiguration.getDefaultSteerFalcon500());
@@ -261,7 +290,16 @@ public class MkSwerveModuleBuilder {
 
         SteerConfiguration<CanCoderAbsoluteConfiguration> steerConfig;
 
-        if (steerMotorType == MotorType.FALCON) {
+        if (steerMotorType == MotorType.KRAKEN) {
+            steerConfig = new SteerConfiguration<>(
+                    steerMotorPort, 
+                    new CanCoderAbsoluteConfiguration(
+                            steerEncoderPort, 
+                            steerOffset,
+                            steerEncoderCanbus
+                    )
+            );
+        } else if (steerMotorType == MotorType.FALCON) {
             steerConfig = new SteerConfiguration<>(
                     steerMotorPort, 
                     new CanCoderAbsoluteConfiguration(

@@ -1,5 +1,5 @@
 package com.swervedrivespecialties.swervelib;
 
 public enum MotorType {
-    FALCON, NEO;
+    KRAKEN, FALCON, NEO;
 }
