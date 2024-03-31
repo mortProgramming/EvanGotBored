@@ -7,10 +7,10 @@
   "mavenUrls": [
     "https://jitpack.io"
   ],
-  "jsonUrl": "https://raw.githubusercontent.com/democat3457/swerve-lib/prod/SdsSwerveLib.json",
+  "jsonUrl": "https://raw.githubusercontent.com/mortProgramming/swerve-lib/main/SdsSwerveLib.json",
   "javaDependencies": [
     {
-      "groupId": "com.github.democat3457",
+      "groupId": "com.github.mortProgramming",
       "artifactId": "swerve-lib",
       "version": "2024.1.1.1"
     }
