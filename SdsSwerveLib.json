@@ -5,7 +5,7 @@
   "frcYear": "2024",
   "uuid": "9619F7EA-7F96-4236-9D94-02338DFED592",
   "mavenUrls": [
-    "https://jitpack.io"
+    "mortprogramming.github.io"
   ],
   "jsonUrl": "https://raw.githubusercontent.com/mortProgramming/swerve-lib/main/SdsSwerveLib.json",
   "javaDependencies": [
