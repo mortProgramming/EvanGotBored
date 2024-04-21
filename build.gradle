@@ -9,8 +9,8 @@ java {
 }
 
 allprojects {
-    group 'com.swervedrivespecialties'
-    version '2024.1.1.1'
+    group 'com.MORT-lib'
+    version '0.0.1'
 
     repositories {
         mavenCentral()

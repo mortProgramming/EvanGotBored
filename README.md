@@ -5,7 +5,7 @@ A fork of Swerve Drive Specialties's swerve library, updated for 2023 and 2024 c
 ## Installation
 
 Use the vendordep link to get the latest stable release:
-> https://raw.githubusercontent.com/mortProgramming/mortprogramming.github.io/main/SdsSwerveLib.json
+> https://raw.githubusercontent.com/mortProgramming/MORT-lib/main/MORT-lib/MORT-lib.json
 
 ## Template code
 

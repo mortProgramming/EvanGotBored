@@ -1,18 +1,18 @@
 {
-  "fileName": "SdsSwerveLib.json",
-  "name": "mortprogramming.github.io",
-  "version": "2024.0.1",
+  "fileName": "MORT-lib.json",
+  "name": "MORT-lib",
+  "version": "0.0.1",
   "frcYear": "2024",
   "uuid": "9619F7EA-7F96-4236-9D94-02338DFED591",
   "mavenUrls": [
-    "https://mortprogramming.github.io/"
+    "https://mortprogramming.github.io/MORT-lib/MORT-lib/MORT-lib.json"
   ],
   "jsonUrl": "https://raw.githubusercontent.com/mortProgramming/mortprogramming.github.io/main/SdsSwerveLib.json",
   "javaDependencies": [
     {
-      "groupId": "com.github.mortProgramming",
+      "groupId": "com.MORT-lib",
       "artifactId": "mortprogramming.github.io",
-      "version": "2024.0.1"
+      "version": "0.0.1"
     }
   ],
   "jniDependencies": [],
