@@ -7,7 +7,7 @@
   "mavenUrls": [
     "https://mortprogramming.github.io/MORT-lib/MORT-lib/MORT-lib.json"
   ],
-  "jsonUrl": "https://raw.githubusercontent.com/mortProgramming/mortprogramming.github.io/main/SdsSwerveLib.json",
+  "jsonUrl": "https://raw.githubusercontent.com/mortProgramming/MORT-lib/main/MORT-lib/MORT-lib.json",
   "javaDependencies": [
     {
       "groupId": "com.MORT-lib",
