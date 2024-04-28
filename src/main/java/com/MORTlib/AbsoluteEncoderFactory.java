@@ -1,4 +1,4 @@
-package com.swervedrivespecialties.swervelib;
+package com.MORTlib;
 
 @FunctionalInterface
 public interface AbsoluteEncoderFactory<Configuration> {

@@ -1,4 +1,4 @@
-package com.swervedrivespecialties.swervelib.ctre;
+package com.MORTlib.ctre;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.ControlRequest;
@@ -8,12 +8,12 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-import com.swervedrivespecialties.swervelib.*;
+import com.MORTlib.*;
 
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardContainer;
 
-import static com.swervedrivespecialties.swervelib.ctre.CtreUtils.checkCtreError;
+import static com.MORTlib.ctre.CtreUtils.checkCtreError;
 
 import java.util.function.Function;
 

@@ -1,4 +1,4 @@
-package com.swervedrivespecialties.swervelib;
+package com.MORTlib;
 
 public final class SdsModuleConfigurations {
     public static final MechanicalConfiguration MK3_STANDARD = new MechanicalConfiguration(

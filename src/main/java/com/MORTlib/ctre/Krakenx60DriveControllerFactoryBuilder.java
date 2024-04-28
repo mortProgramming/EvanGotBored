@@ -1,12 +1,12 @@
-package com.swervedrivespecialties.swervelib.ctre;
+package com.MORTlib.ctre;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-import com.swervedrivespecialties.swervelib.DriveController;
-import com.swervedrivespecialties.swervelib.DriveControllerFactory;
-import com.swervedrivespecialties.swervelib.MechanicalConfiguration;
+import com.MORTlib.DriveController;
+import com.MORTlib.DriveControllerFactory;
+import com.MORTlib.MechanicalConfiguration;
 
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 

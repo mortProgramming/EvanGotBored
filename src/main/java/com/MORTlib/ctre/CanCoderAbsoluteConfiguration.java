@@ -1,4 +1,4 @@
-package com.swervedrivespecialties.swervelib.ctre;
+package com.MORTlib.ctre;
 
 public class CanCoderAbsoluteConfiguration {
     private final int id;
