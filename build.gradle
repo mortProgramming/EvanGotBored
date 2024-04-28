@@ -9,7 +9,7 @@ java {
 }
 
 allprojects {
-    group 'com.MORT-lib'
+    group 'com.MORTlib'
     version '0.0.1'
 
     repositories {
