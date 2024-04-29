@@ -1,3 +1,3 @@
 #!/bin/bash
 ./gradlew publish
-cp -rf build/repos/release/com/MORTlib MORTlib/repos/releases
+cp -rf build/repos/releases/com/MORTlib MORTlib/repos/releases/com
