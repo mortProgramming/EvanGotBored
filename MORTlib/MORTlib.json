@@ -7,11 +7,11 @@
   "mavenUrls": [
     "https://mortprogramming.github.io/MORTlib/MORTlib/repos/releases"
   ],
-  "jsonUrl": "https://raw.githubusercontent.com/mortProgramming/MORTlib/main/MORTlib/MORTlib.json",
+  "jsonUrl": "https://mortprogramming.github.io/MORTlib/MORTlib/MORTlib.json",
   "javaDependencies": [
     {
       "groupId": "com.MORTlib",
-      "artifactId": "mortprogramming.github.io",
+      "artifactId": "MORTlib-java",
       "version": "0.0.1"
     }
   ],
