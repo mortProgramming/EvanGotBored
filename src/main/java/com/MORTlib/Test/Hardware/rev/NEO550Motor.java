@@ -6,7 +6,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.RelativeEncoder;
 
-public class RevMotor implements MotorIntf {
+public class NEO550Motor implements MotorIntf {
 
     public int ID;
     public CANSparkLowLevel.MotorType brushType;
@@ -15,7 +15,7 @@ public class RevMotor implements MotorIntf {
     public CANSparkMax motor;
 
     // CANSparkLowLevel.MotorType.kBrushless
-    public RevMotor(int ID, CANSparkLowLevel.MotorType brushType, boolean direction) {
+    public NEO550Motor(int ID, CANSparkLowLevel.MotorType brushType, boolean direction) {
         this.ID = ID;
         this.brushType = brushType;
         this.direction = direction;

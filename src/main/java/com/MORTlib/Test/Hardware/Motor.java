@@ -1,7 +1,9 @@
 package com.MORTlib.Test.Hardware;
 
-import com.MORTlib.Test.Hardware.ctre.CTREMotor;
-import com.MORTlib.Test.Hardware.rev.RevMotor;
+import com.MORTlib.Test.Hardware.ctre.Krakenx60Motor;
+import com.MORTlib.Test.Hardware.ctre.Falcon500Motor;
+import com.MORTlib.Test.Hardware.rev.NEOMotor;
+import com.MORTlib.Test.Hardware.rev.NEO550Motor;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.MORTlib.Test.Hardware.MotorTypeEnum;
 
@@ -27,19 +29,19 @@ public class Motor implements MotorIntf {
 
         switch (motorType) {
             case NEO:
-                motor = new RevMotor(ID, brushType, direction);
+                this.motor = new NEOMotor(ID, brushType, direction);
                 break;
 
             case NEO550:
-                motor = new RevMotor(ID, brushType, direction);
+                this.motor = new NEO550Motor(ID, brushType, direction);
                 break;
 
             case FALCON:
-                motor = new CTREMotor(ID, direction);
+                this.motor = new Falcon500Motor(ID, direction);
                 break;
 
             case KRAKEN:
-                motor = new CTREMotor(ID, direction);
+                this.motor = new Krakenx60Motor(ID, direction);
                 break;
         }
     }
@@ -52,19 +54,19 @@ public class Motor implements MotorIntf {
 
         switch (motorType) {
             case NEO:
-                motor = new RevMotor(ID, brushType, direction);
+                this.motor = new NEO550Motor(ID, brushType, direction);
                 break;
 
             case NEO550:
-                motor = new RevMotor(ID, brushType, direction);
+                this.motor = new NEOMotor(ID, brushType, direction);
                 break;
 
             case FALCON:
-                motor = new CTREMotor(ID, direction);
+                this.motor = new Falcon500Motor(ID, direction);
                 break;
 
             case KRAKEN:
-                motor = new CTREMotor(ID, direction);
+                this.motor = new Krakenx60Motor(ID, direction);
                 break;
         }
     }

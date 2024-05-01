@@ -4,15 +4,14 @@ import com.MORTlib.Test.Hardware.MotorIntf;
 
 import com.ctre.phoenix6.hardware.TalonFX;
 
-public class CTREMotor implements MotorIntf {
+public class Falcon500Motor implements MotorIntf {
 
     public int ID;
     public boolean direction;
 
     public TalonFX motor;
 
-    // CANSparkLowLevel.MotorType.kBrushless
-    public CTREMotor(int ID, boolean direction) {
+    public Falcon500Motor(int ID, boolean direction) {
         this.ID = ID;
         this.direction = direction;
 
