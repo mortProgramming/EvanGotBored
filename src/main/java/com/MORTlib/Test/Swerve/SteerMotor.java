@@ -8,8 +8,7 @@ import com.MORTlib.Test.Hardware.MotorTypeEnum;
 public class SteerMotor {
 
     public SteerMotor(MotorTypeEnum motorType) {
-        
+
     }
 
-    
 }
