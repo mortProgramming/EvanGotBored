@@ -2,9 +2,10 @@ package com.MORTlib.Test.Swerve;
 
 import edu.wpi.first.math.controller.PIDController;
 
-import com.MORTlib.Test.Hardware.ctre.CTREUtility;
-import com.MORTlib.Test.Hardware.rev.RevUtility;
-
+import com.MORTlib.Test.Hardware.ctre.CTREUtility.Krakenx60;
+import com.MORTlib.Test.Hardware.ctre.CTREUtility.Falcon500;
+import com.MORTlib.Test.Hardware.rev.RevUtility.NEO550;
+import com.MORTlib.Test.Hardware.rev.RevUtility.NEO;
 import com.MORTlib.Test.Hardware.Motor;
 import com.MORTlib.Test.Hardware.MotorIntf;
 import com.MORTlib.Test.Hardware.MotorTypeEnum;
@@ -21,11 +22,11 @@ public class SteerMotor implements MotorIntf {
 
     public PIDController controllerD;
 
-    public int KP;
-    public int KI;
-    public int KD;
+    public double KP;
+    public double KI;
+    public double KD;
 
-    public SteerMotor(int motorID, MotorTypeEnum motorType) {
+    public SteerMotor(MotorTypeEnum motorType, int motorID) {
         this.motorID = motorID;
         this.motorType = motorType;
 

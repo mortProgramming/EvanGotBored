@@ -23,15 +23,15 @@ public class PositionEncoder implements EncoderIntf {
         this.encoderID = encoderID;
         this.encoderType = encoderType;
 
-        this.encoder = new Encoder(encoderID, encoderType);
-    }
-
-    public void setPositionD(double position) {
-        this.motor.setVoltage(controller.calculate(encoder.getPositionD(), position));
+        this.encoder = new Encoder(encoderType, encoderID);
     }
 
     public double getPositionD() {
         return this.encoder.getPositionD();
+    }
+
+    public double getPositionR() {
+        return this.encoder.getPositionR();
     }
 
 }

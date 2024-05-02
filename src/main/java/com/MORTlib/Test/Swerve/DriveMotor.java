@@ -1,7 +1,13 @@
-package com.MORTlib.Test.Hardware;
+package com.MORTlib.Test.Swerve;
 
 import com.MORTlib.Test.Hardware.Motor;
+import com.MORTlib.Test.Hardware.MotorIntf;
 import com.MORTlib.Test.Hardware.MotorTypeEnum;
+
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkLowLevel;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkLowLevel.MotorType;
 
 public class DriveMotor implements MotorIntf {
 

@@ -26,9 +26,9 @@ public class SwerveModule {
     public MotorIntf steerMotor;
     public EncoderIntf encoder;
 
-    public SwerveModule(int driveMotorID, MotorTypeEnum driveMotorType, 
-            int steerMotorID, MotorTypeEnum steerMotorType, 
-            int encoderID, EncoderTypeEnum encoderType
+    public SwerveModule(MotorTypeEnum driveMotorType, int driveMotorID, 
+            MotorTypeEnum steerMotorType, int steerMotorID, 
+            EncoderTypeEnum encoderType, int encoderID
         ) {
         this.driveMotorID = driveMotorID;
         this.driveMotorID = driveMotorID;

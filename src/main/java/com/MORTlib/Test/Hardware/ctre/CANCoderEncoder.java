@@ -1,8 +1,8 @@
 package com.MORTlib.Test.Hardware.ctre;
 
-import com.MORTlib.Test.Hardware.MotorIntf;
+import com.MORTlib.Test.Hardware.EncoderIntf;
 
-import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.hardware.CANcoder;
 
 public class CANCoderEncoder implements EncoderIntf {
 
