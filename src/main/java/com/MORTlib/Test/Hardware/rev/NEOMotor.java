@@ -10,17 +10,18 @@ public class NEOMotor implements MotorIntf {
 
     public int ID;
     public CANSparkLowLevel.MotorType brushType;
-    public boolean direction;
 
     public CANSparkMax motor;
 
     // CANSparkLowLevel.MotorType.kBrushless
-    public NEOMotor(int ID, CANSparkLowLevel.MotorType brushType, boolean direction) {
+    public NEOMotor(int ID, CANSparkLowLevel.MotorType brushType) {
         this.ID = ID;
         this.brushType = brushType;
-        this.direction = direction;
 
         this.motor = new CANSparkMax(ID, brushType);
+    }
+
+    public void setDirection(boolean direction) {
         this.motor.setInverted(direction);
     }
 

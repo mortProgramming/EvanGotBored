@@ -11,7 +11,6 @@ import com.MORTlib.Test.Hardware.rev.RevUtility;
 import com.MORTlib.Test.Hardware.rev.RevUtility.NEO;
 import com.MORTlib.Test.Hardware.rev.RevUtility.NEO550;
 import com.MORTlib.Test.Hardware.Motor;
-import com.MORTlib.Test.Hardware.PIDMotor;
 import com.MORTlib.Test.Hardware.MotorIntf;
 import com.MORTlib.Test.Hardware.MotorTypeEnum;
 import com.MORTlib.Test.Hardware.Encoder;
@@ -55,7 +54,7 @@ public class SwerveModule {
         this.moduleType = moduleType;
 
         this.driveMotor = new Motor(driveMotorType, driveMotorID);
-        this.steerMotor = new PIDMotor(steerMotorType, steerMotorID);
+        this.steerMotor = new Motor(steerMotorType, steerMotorID);
         this.encoder = new Encoder(encoderType, encoderID);
 
         this.maxSpeed = Math.PI / 60;

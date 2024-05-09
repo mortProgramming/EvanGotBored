@@ -7,15 +7,16 @@ import com.ctre.phoenix6.hardware.TalonFX;
 public class Krakenx60Motor implements MotorIntf {
 
     public int ID;
-    public boolean direction;
 
     public TalonFX motor;
 
-    public Krakenx60Motor(int ID, boolean direction) {
+    public Krakenx60Motor(int ID) {
         this.ID = ID;
-        this.direction = direction;
 
         this.motor = new TalonFX(ID);
+    }
+
+    public void setDirection(boolean direction) {
         this.motor.setInverted(direction);
     }
 

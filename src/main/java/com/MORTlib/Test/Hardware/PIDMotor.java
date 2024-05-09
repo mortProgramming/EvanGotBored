@@ -13,55 +13,28 @@ import com.MORTlib.Test.Hardware.Encoder;
 import com.MORTlib.Test.Hardware.EncoderIntf;
 import com.MORTlib.Test.Hardware.EncoderTypeEnum;
 
-public class SteerMotor implements MotorIntf {
+public class PIDMotor implements MotorIntf {
 
     public int motorID;
     public MotorTypeEnum motorType;
 
     public MotorIntf motor;
 
-    public PIDController controllerD;
+    public PIDController controller;
 
-    public double KP;
-    public double KI;
-    public double KD;
-
-    public SteerMotor(MotorTypeEnum motorType, int motorID) {
+    public PIDMotor(MotorTypeEnum motorType, int motorID) {
         this.motorID = motorID;
         this.motorType = motorType;
 
-        this.motor = new Motor(motorType, motorID, false);
+        this.motor = new Motor(motorType, motorID);
 
-        switch (motorType) {
-            case NEO:
-                this.KP = NEO.SWERVE_STEER_KP;
-                this.KI = NEO.SWERVE_STEER_KI;
-                this.KD = NEO.SWERVE_STEER_KD;
-                break;
-            case NEO550:
-                this.KP = NEO550.SWERVE_STEER_KP;
-                this.KI = NEO550.SWERVE_STEER_KI;
-                this.KD = NEO550.SWERVE_STEER_KD;
-                break;
-            case FALCON:
-                this.KP = Falcon500.SWERVE_STEER_KP;
-                this.KI = Falcon500.SWERVE_STEER_KI;
-                this.KD = Falcon500.SWERVE_STEER_KD;
-                break;
-            case KRAKEN:
-                this.KP = Krakenx60.SWERVE_STEER_KP;
-                this.KI = Krakenx60.SWERVE_STEER_KI;
-                this.KD = Krakenx60.SWERVE_STEER_KD;
-                break;
-        }
-
-        this.controllerD = new PIDController(KP, KI, KD);
-        this.controllerD.enableContinuousInput(0, 360);
-        this.controllerD.setTolerance(2, 10);
+        this.controller = new PIDController(0, 0, 0);
+        this.controller.enableContinuousInput(-180, 180);
+        this.controller.setTolerance(2, 10);
     }
 
     public void setPositionD(double position, double setpoint) {
-        this.motor.setVoltage(controllerD.calculate(position, setpoint));
+        this.motor.setVoltage(controller.calculate(position, setpoint));
     }
 
     public void setPercent(double percent) {
@@ -71,6 +44,16 @@ public class SteerMotor implements MotorIntf {
     public void setVoltage(double voltage) {
         this.motor.setVoltage(voltage);
     }
+
+    public void setPIDValues(double kP, double kI, double kD) {
+        controller = new PIDController(kP, kI, kD);
+    }
+
+    public void setPIDTolerance(double position, double velocity) {
+        this.controller.setTolerance(position, velocity);
+    }
+
+
 
     public double getPositionD() {
         return this.motor.getPositionD();

@@ -5,6 +5,7 @@ import com.MORTlib.Test.Hardware.ctre.Falcon500Motor;
 import com.MORTlib.Test.Hardware.rev.NEOMotor;
 import com.MORTlib.Test.Hardware.rev.NEO550Motor;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.fasterxml.jackson.annotation.ObjectIdGenerator.IdKey;
 import com.MORTlib.Test.Hardware.MotorTypeEnum;
 
 import com.revrobotics.CANSparkMax;
@@ -21,54 +22,40 @@ public class Motor implements MotorIntf {
 
     public MotorIntf motor;
     
-    public Motor(MotorTypeEnum motorType, int ID, boolean direction) {
-        this.motorType = motorType;
-        this.ID = ID;
-        this.brushType = MotorType.kBrushless;
-        this.direction = direction;
-
-        switch (motorType) {
-            case NEO:
-                this.motor = new NEOMotor(ID, brushType, direction);
-                break;
-
-            case NEO550:
-                this.motor = new NEO550Motor(ID, brushType, direction);
-                break;
-
-            case FALCON:
-                this.motor = new Falcon500Motor(ID, direction);
-                break;
-
-            case KRAKEN:
-                this.motor = new Krakenx60Motor(ID, direction);
-                break;
-        }
+    public Motor(MotorTypeEnum motorType, int ID) {
+        this(motorType, ID, MotorType.kBrushless);
     }
     
-    public Motor(MotorTypeEnum motorType, int ID, CANSparkLowLevel.MotorType brushType, boolean direction) {
+    public Motor(MotorTypeEnum motorType, int ID, CANSparkLowLevel.MotorType brushType) {
         this.motorType = motorType;
         this.ID = ID;
         this.brushType = brushType;
-        this.direction = direction;
 
         switch (motorType) {
             case NEO:
-                this.motor = new NEO550Motor(ID, brushType, direction);
+                this.motor = new NEO550Motor(ID, brushType);
                 break;
 
             case NEO550:
-                this.motor = new NEOMotor(ID, brushType, direction);
+                this.motor = new NEOMotor(ID, brushType);
                 break;
 
             case FALCON:
-                this.motor = new Falcon500Motor(ID, direction);
+                this.motor = new Falcon500Motor(ID);
                 break;
 
             case KRAKEN:
-                this.motor = new Krakenx60Motor(ID, direction);
+                this.motor = new Krakenx60Motor(ID);
                 break;
         }
+    }
+
+    public void setDirection(boolean direction) {
+        this.motor.setDirection(direction);
+    }
+
+    public void setPIDValues(double kP, double kI, double kD) {
+        this.motor.setPIDValues(kP, kI, kD);
     }
 
     public void setPercent(double percent) {
@@ -77,6 +64,10 @@ public class Motor implements MotorIntf {
 
     public void setVoltage(double voltage) {
         this.motor.setVoltage(voltage);
+    }
+
+    public void setPositionD(double position, double setpoint) {
+        this.motor.setPositionD(position, setpoint);
     }
 
     public double getPositionD() {
