@@ -22,11 +22,22 @@ public class Falcon500Motor implements MotorIntf {
         this.config.Slot0.kD = 0;
 
         motor.getConfigurator().apply(config);
-        // motor.set
+    }
+
+    public void setCurrentLimit(double limit) {
+        this.config.CurrentLimits.SupplyCurrentLimit = limit;
+        this.motor.getConfigurator().apply(config);
     }
 
     public void setDirection(boolean direction) {
         this.motor.setInverted(direction);
+    }
+
+    public void setPIDValues(double kP, double kI, double kD) {
+        this.config.Slot0.kP = kP;
+        this.config.Slot0.kI = kI;
+        this.config.Slot0.kD = kD;
+        this.motor.getConfigurator().apply(config);
     }
 
     public void setPercent(double percent) {
@@ -37,11 +48,17 @@ public class Falcon500Motor implements MotorIntf {
         this.motor.setVoltage(voltage);
     }
 
+    public void setPositionD(double position, double setpoint) {
+        //do
+    }
+
+
+
     public double getPositionD() {
         return this.motor.getPosition().getValueAsDouble() * 360;
     }
 
-    public double getPosition1() {
+    public double getPosition() {
         return this.motor.getPosition().getValueAsDouble();
     }
 

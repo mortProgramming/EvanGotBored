@@ -1,17 +1,6 @@
-package com.MORTlib.Test.Swerve;
+package com.MORTlib.Test.Hardware;
 
 import edu.wpi.first.math.controller.PIDController;
-
-import com.MORTlib.Test.Hardware.ctre.CTREUtility.Krakenx60;
-import com.MORTlib.Test.Hardware.ctre.CTREUtility.Falcon500;
-import com.MORTlib.Test.Hardware.rev.RevUtility.NEO550;
-import com.MORTlib.Test.Hardware.rev.RevUtility.NEO;
-import com.MORTlib.Test.Hardware.Motor;
-import com.MORTlib.Test.Hardware.MotorIntf;
-import com.MORTlib.Test.Hardware.MotorTypeEnum;
-import com.MORTlib.Test.Hardware.Encoder;
-import com.MORTlib.Test.Hardware.EncoderIntf;
-import com.MORTlib.Test.Hardware.EncoderTypeEnum;
 
 public class PIDMotor implements MotorIntf {
 
@@ -31,6 +20,14 @@ public class PIDMotor implements MotorIntf {
         this.controller = new PIDController(0, 0, 0);
         this.controller.enableContinuousInput(-180, 180);
         this.controller.setTolerance(2, 10);
+    }
+
+    public void setCurrentLimit(double limit) {
+        this.motor.setCurrentLimit(limit);
+    }
+
+    public void setDirection(boolean direction) {
+        this.motor.setDirection(direction);
     }
 
     public void setPositionD(double position, double setpoint) {
@@ -59,8 +56,8 @@ public class PIDMotor implements MotorIntf {
         return this.motor.getPositionD();
     }
 
-    public double getPosition1() {
-        return this.motor.getPosition1();
+    public double getPosition() {
+        return this.motor.getPosition();
     }
 
     public double getVelocityD() {

@@ -1,13 +1,11 @@
 package com.MORTlib.Test.Swerve;
 
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 
-import com.MORTlib.Test.Hardware.ctre.CTREUtility;
 import com.MORTlib.Test.Hardware.ctre.CTREUtility.Falcon500;
 import com.MORTlib.Test.Hardware.ctre.CTREUtility.Krakenx60;
-import com.MORTlib.Test.Hardware.rev.RevUtility;
 import com.MORTlib.Test.Hardware.rev.RevUtility.NEO;
 import com.MORTlib.Test.Hardware.rev.RevUtility.NEO550;
 import com.MORTlib.Test.Hardware.Motor;
@@ -36,6 +34,8 @@ public class SwerveModule {
 
     public double maxSpeed;
     public double maxVoltage;
+    public double rotationToMeters;
+
     public double offset;
 
     public SwerveModuleState state;
@@ -61,6 +61,7 @@ public class SwerveModule {
         this.maxSpeed = Math.PI / 60;
         this.maxVoltage = 12;
         this.offset = 0;
+        this.rotationToMeters = Math.PI;
 
         switch(driveMotorType) {
             case NEO:
@@ -111,7 +112,13 @@ public class SwerveModule {
         switch (moduleType) {
             case MK4i:
                 this.maxSpeed = this.maxSpeed * MK4i.WHEEL_DIAMETER * MK4i.DRIVE_REDUCTION;
+                this.rotationToMeters = this.rotationToMeters * MK4i.WHEEL_DIAMETER * MK4i.DRIVE_REDUCTION;
         }
+    }
+
+    public void setCurrentLimits(double limit) {
+        this.driveMotor.setCurrentLimit(limit);
+        this.steerMotor.setCurrentLimit(limit);
     }
 
     public void setPosition(Rotation2d setpoint) {
@@ -155,6 +162,10 @@ public class SwerveModule {
         return this.encoder.getPositionD() - offset;
     }
 
+    public double getDrivePosition() {
+        return this.driveMotor.getPosition();
+    }
+
     public double getDriveVelocityD() {
         return this.driveMotor.getVelocityD();
     }
@@ -169,6 +180,13 @@ public class SwerveModule {
 
     public SwerveModuleState getModuleState() {
         return this.state;
+    }
+
+    public SwerveModulePosition getPosition() {
+        return new SwerveModulePosition(
+            (this.driveMotor.getPosition() * this.rotationToMeters), 
+            Rotation2d.fromDegrees(this.getEncoderPositionD())
+        );
     }
 
 

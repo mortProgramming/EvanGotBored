@@ -7,6 +7,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 
 public class SwerveDrive {
@@ -26,18 +27,22 @@ public class SwerveDrive {
             MotorTypeEnum frontLeftDriveMotorType, int frontLeftDriveMotorID, 
             MotorTypeEnum frontLeftSteerMotorType, int frontLeftSteerMotorID,
             EncoderTypeEnum frontLeftEncoderType, int frontLeftEncoderID,
+            ModuleTypeEnum frontLeftModuleType,
 
             MotorTypeEnum frontRightDriveMotorType, int frontRightDriveMotorID, 
             MotorTypeEnum frontRightSteerMotorType, int frontRightSteerMotorID,
             EncoderTypeEnum frontRightEncoderType, int frontRightEncoderID,
+            ModuleTypeEnum frontRightModuleType,
 
             MotorTypeEnum backLeftDriveMotorType, int backLeftDriveMotorID, 
             MotorTypeEnum backLeftSteerMotorType, int backLeftSteerMotorID,
             EncoderTypeEnum backLeftEncoderType, int backLeftEncoderID,
+            ModuleTypeEnum backLeftModuleType,
 
             MotorTypeEnum backRightDriveMotorType, int backRightDriveMotorID, 
             MotorTypeEnum backRightSteerMotorType, int backRightSteerMotorID,
             EncoderTypeEnum backRightEncoderType, int backRightEncoderID,
+            ModuleTypeEnum backRightModuleType,
 
             double robotLength,
             double robotWidth
@@ -47,22 +52,26 @@ public class SwerveDrive {
             new SwerveModule(
                 frontLeftDriveMotorType, frontLeftDriveMotorID,
                 frontLeftSteerMotorType, frontLeftSteerMotorID,
-                frontLeftEncoderType, frontLeftEncoderID
+                frontLeftEncoderType, frontLeftEncoderID,
+                frontLeftModuleType
             ), 
             new SwerveModule(
                 frontRightDriveMotorType, frontRightDriveMotorID,
                 frontRightSteerMotorType, frontRightSteerMotorID,
-                frontRightEncoderType, frontRightEncoderID
+                frontRightEncoderType, frontRightEncoderID,
+                frontRightModuleType
             ), 
             new SwerveModule(
                 backLeftDriveMotorType, backLeftDriveMotorID,
                 backLeftSteerMotorType, backLeftSteerMotorID,
-                backLeftEncoderType, backLeftEncoderID
+                backLeftEncoderType, backLeftEncoderID,
+                backLeftModuleType
             ), 
             new SwerveModule (
                 backRightDriveMotorType, backRightDriveMotorID,
                 backRightSteerMotorType, backRightSteerMotorID,
-                backRightEncoderType, backRightEncoderID
+                backRightEncoderType, backRightEncoderID,
+                backRightModuleType
             ), 
             new SwerveDriveKinematics(
 				// Front left
@@ -140,6 +149,10 @@ public class SwerveDrive {
 
 
 
+    public SwerveDriveKinematics getKinematics() {
+        return this.kinematics;
+    }
+
     public SwerveModule getModule(int num) {
         switch (num) {
             case 1:
@@ -147,12 +160,21 @@ public class SwerveDrive {
             case 2:
                 return this.frontRightModule;
             case 3:
-                return this.ackLeftModule;
+                return this.backLeftModule;
             case 4:
                 return this.backRightModule;
             default:
                 return this.frontLeftModule;
 
         }
+    }
+
+    public SwerveModulePosition[] getModulePositions() {
+        return new SwerveModulePosition[]{
+            frontLeftModule.getPosition(), 
+            frontRightModule.getPosition(), 
+            backLeftModule.getPosition(), 
+            backRightModule.getPosition()
+        };
     }
 }

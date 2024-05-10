@@ -4,7 +4,6 @@ import com.MORTlib.Test.Hardware.MotorIntf;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel;
-import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
 
 public class NEO550Motor implements MotorIntf {
@@ -26,11 +25,20 @@ public class NEO550Motor implements MotorIntf {
         controller.setP(0, 0);
         controller.setI(0, 0);
         controller.setD(0, 0);
+    }
 
+    public void setCurrentLimit(double limit) {
+        this.motor.setSecondaryCurrentLimit(limit);
     }
 
     public void setDirection(boolean direction) {
         this.motor.setInverted(direction);
+    }
+
+    public void setPIDValues(double kP, double kI, double kD) {
+        this.controller.setP(kP);
+        this.controller.setI(kI);
+        this.controller.setD(kD);
     }
 
     public void setPercent(double percent) {
@@ -41,15 +49,17 @@ public class NEO550Motor implements MotorIntf {
         this.motor.setVoltage(voltage);
     }
 
-    // public void setPositionD(double positon, double setpoint) {
-    //     this.controller.
-    // }
+    public void setPositionD(double positon, double setpoint) {
+        // do later
+    }
+
+    
 
     public double getPositionD() {
         return this.motor.getEncoder().getPosition() * 360;
     }
 
-    public double getPosition1() {
+    public double getPosition() {
         return this.motor.getEncoder().getPosition();
     }
 

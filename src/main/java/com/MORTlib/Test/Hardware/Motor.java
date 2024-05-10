@@ -4,13 +4,8 @@ import com.MORTlib.Test.Hardware.ctre.Krakenx60Motor;
 import com.MORTlib.Test.Hardware.ctre.Falcon500Motor;
 import com.MORTlib.Test.Hardware.rev.NEOMotor;
 import com.MORTlib.Test.Hardware.rev.NEO550Motor;
-import com.ctre.phoenix6.hardware.TalonFX;
-import com.fasterxml.jackson.annotation.ObjectIdGenerator.IdKey;
-import com.MORTlib.Test.Hardware.MotorTypeEnum;
 
-import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel;
-import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 public class Motor implements MotorIntf {
@@ -50,6 +45,10 @@ public class Motor implements MotorIntf {
         }
     }
 
+    public void setCurrentLimit(double limit) {
+        this.motor.setCurrentLimit(limit);
+    }
+
     public void setDirection(boolean direction) {
         this.motor.setDirection(direction);
     }
@@ -74,8 +73,8 @@ public class Motor implements MotorIntf {
         return this.motor.getPositionD();
     }
 
-    public double getPosition1() {
-        return this.motor.getPosition1();
+    public double getPosition() {
+        return this.motor.getPosition();
     }
 
     public double getVelocityD() {

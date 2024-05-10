@@ -4,7 +4,7 @@ import com.MORTlib.Test.Hardware.MotorIntf;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel;
-import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkPIDController;
 
 public class NEOMotor implements MotorIntf {
 
@@ -13,16 +13,33 @@ public class NEOMotor implements MotorIntf {
 
     public CANSparkMax motor;
 
+    public SparkPIDController controller;
+
     // CANSparkLowLevel.MotorType.kBrushless
     public NEOMotor(int ID, CANSparkLowLevel.MotorType brushType) {
         this.ID = ID;
         this.brushType = brushType;
 
         this.motor = new CANSparkMax(ID, brushType);
+        this.controller = this.motor.getPIDController();
+
+        controller.setP(0, 0);
+        controller.setI(0, 0);
+        controller.setD(0, 0);
+    }
+
+    public void setCurrentLimit(double limit) {
+        this.motor.setSecondaryCurrentLimit(limit);
     }
 
     public void setDirection(boolean direction) {
         this.motor.setInverted(direction);
+    }
+
+    public void setPIDValues(double kP, double kI, double kD) {
+        this.controller.setP(kP);
+        this.controller.setI(kI);
+        this.controller.setD(kD);
     }
 
     public void setPercent(double percent) {
@@ -33,11 +50,17 @@ public class NEOMotor implements MotorIntf {
         this.motor.setVoltage(voltage);
     }
 
+    public void setPositionD(double positon, double setpoint) {
+        // do later
+    }
+
+
+
     public double getPositionD() {
         return this.motor.getEncoder().getPosition() * 360;
     }
 
-    public double getPosition1() {
+    public double getPosition() {
         return this.motor.getEncoder().getPosition();
     }
 

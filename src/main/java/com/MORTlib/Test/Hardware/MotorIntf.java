@@ -2,6 +2,8 @@ package com.MORTlib.Test.Hardware;
 
 public interface MotorIntf {
 
+    public void setCurrentLimit(double limit);
+    
     public void setDirection(boolean direction);
 
     public void setPIDValues(double kP, double kI, double kD);
@@ -16,7 +18,7 @@ public interface MotorIntf {
     public double getPositionD();
 
     // 1 is a full turn
-    public double getPosition1();
+    public double getPosition();
 
     public double getVelocityD();
 
