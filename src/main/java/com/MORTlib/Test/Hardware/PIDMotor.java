@@ -15,31 +15,31 @@ public class PIDMotor implements MotorIntf {
         this.motorID = motorID;
         this.motorType = motorType;
 
-        this.motor = new Motor(motorType, motorID);
+        motor = new Motor(motorType, motorID);
 
-        this.controller = new PIDController(0, 0, 0);
-        this.controller.enableContinuousInput(-180, 180);
-        this.controller.setTolerance(2, 10);
+        controller = new PIDController(0, 0, 0);
+        controller.enableContinuousInput(-180, 180);
+        controller.setTolerance(2, 10);
     }
 
     public void setCurrentLimit(double limit) {
-        this.motor.setCurrentLimit(limit);
+        motor.setCurrentLimit(limit);
     }
 
     public void setDirection(boolean direction) {
-        this.motor.setDirection(direction);
+        motor.setDirection(direction);
     }
 
     public void setPositionD(double position, double setpoint) {
-        this.motor.setVoltage(controller.calculate(position, setpoint));
+        motor.setVoltage(controller.calculate(position, setpoint));
     }
 
     public void setPercent(double percent) {
-        this.motor.setPercent(percent);
+        motor.setPercent(percent);
     }
 
     public void setVoltage(double voltage) {
-        this.motor.setVoltage(voltage);
+        motor.setVoltage(voltage);
     }
 
     public void setPIDValues(double kP, double kI, double kD) {
@@ -47,33 +47,33 @@ public class PIDMotor implements MotorIntf {
     }
 
     public void setPIDTolerance(double position, double velocity) {
-        this.controller.setTolerance(position, velocity);
+        controller.setTolerance(position, velocity);
     }
 
 
 
     public double getPositionD() {
-        return this.motor.getPositionD();
+        return motor.getPositionD();
     }
 
     public double getPosition() {
-        return this.motor.getPosition();
+        return motor.getPosition();
     }
 
     public double getVelocityD() {
-        return this.motor.getVelocityD();
+        return motor.getVelocityD();
     }
 
     public double getVelocity1() {
-        return this.motor.getVelocity1();
+        return motor.getVelocity1();
     }
 
     public MotorIntf getMotor() {
-        return this.motor;
+        return motor;
     }
 
     public MotorTypeEnum getMotorType() {
-        return this.motorType;
+        return motorType;
     }
 
 }

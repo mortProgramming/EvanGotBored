@@ -1,0 +1,17 @@
+Do Later:
+1. Second order kinematics
+    a. Smudge constants?
+2. Module Positions Viewer Page
+3. Basic Arm PID, FF, and Gravity
+4. Wrappers
+5. Java Docs
+6. Slew Rate Limiting
+7. Using In Built Motor Controller PIDs
+8. Loop Time Optimization?
+    a. IMU multithreading
+9. The FF thing finder doer
+10. Remove some getters and setters
+
+Doing Now:
+1. Odometry
+2. Remove this.

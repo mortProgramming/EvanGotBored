@@ -91,14 +91,14 @@ public class SwerveDrive {
             SwerveModule backLeftModule, SwerveModule backRightModule, 
             SwerveDriveKinematics kinematics
         ) {
-        this.frontLeftModule = frontLeftModule;
-        this.frontRightModule = frontRightModule;
-        this.backLeftModule = backLeftModule;
-        this.backRightModule = backRightModule;
+            this.frontLeftModule = frontLeftModule;
+            this.frontRightModule = frontRightModule;
+            this.backLeftModule = backLeftModule;
+            this.backRightModule = backRightModule;
 
-        this.kinematics = kinematics;
+            this.kinematics = kinematics;
 
-        this.descritizedValue = 0.02;
+        descritizedValue = 0.02;
     }
 
     public void setVelocity(ChassisSpeeds velocity) {
@@ -129,7 +129,7 @@ public class SwerveDrive {
     }
 
     public void setDescritizedValue(double value) {
-        this.descritizedValue = value;
+        descritizedValue = value;
     }
 
     public void setOffsets(double[] offsets) {
@@ -150,21 +150,21 @@ public class SwerveDrive {
 
 
     public SwerveDriveKinematics getKinematics() {
-        return this.kinematics;
+        return kinematics;
     }
 
     public SwerveModule getModule(int num) {
         switch (num) {
             case 1:
-                return this.frontLeftModule;
+                return frontLeftModule;
             case 2:
-                return this.frontRightModule;
+                return frontRightModule;
             case 3:
-                return this.backLeftModule;
+                return backLeftModule;
             case 4:
-                return this.backRightModule;
+                return backRightModule;
             default:
-                return this.frontLeftModule;
+                return frontLeftModule;
 
         }
     }

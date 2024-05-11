@@ -14,38 +14,38 @@ public class Falcon500Motor implements MotorIntf {
     public Falcon500Motor(int ID) {
         this.ID = ID;
 
-        this.motor = new TalonFX(ID);
-        this.config = new TalonFXConfiguration();
+        motor = new TalonFX(ID);
+        config = new TalonFXConfiguration();
 
-        this.config.Slot0.kP = 0;
-        this.config.Slot0.kI = 0;
-        this.config.Slot0.kD = 0;
+        config.Slot0.kP = 0;
+        config.Slot0.kI = 0;
+        config.Slot0.kD = 0;
 
         motor.getConfigurator().apply(config);
     }
 
     public void setCurrentLimit(double limit) {
-        this.config.CurrentLimits.SupplyCurrentLimit = limit;
-        this.motor.getConfigurator().apply(config);
+        config.CurrentLimits.SupplyCurrentLimit = limit;
+        motor.getConfigurator().apply(config);
     }
 
     public void setDirection(boolean direction) {
-        this.motor.setInverted(direction);
+        motor.setInverted(direction);
     }
 
     public void setPIDValues(double kP, double kI, double kD) {
-        this.config.Slot0.kP = kP;
-        this.config.Slot0.kI = kI;
-        this.config.Slot0.kD = kD;
-        this.motor.getConfigurator().apply(config);
+        config.Slot0.kP = kP;
+        config.Slot0.kI = kI;
+        config.Slot0.kD = kD;
+        motor.getConfigurator().apply(config);
     }
 
     public void setPercent(double percent) {
-        this.motor.set(percent);
+        motor.set(percent);
     }
 
     public void setVoltage(double voltage) {
-        this.motor.setVoltage(voltage);
+        motor.setVoltage(voltage);
     }
 
     public void setPositionD(double position, double setpoint) {
@@ -55,23 +55,23 @@ public class Falcon500Motor implements MotorIntf {
 
 
     public double getPositionD() {
-        return this.motor.getPosition().getValueAsDouble() * 360;
+        return motor.getPosition().getValueAsDouble() * 360;
     }
 
     public double getPosition() {
-        return this.motor.getPosition().getValueAsDouble();
+        return motor.getPosition().getValueAsDouble();
     }
 
     public double getVelocityD() {
-        return this.motor.getVelocity().getValueAsDouble() * 360;
+        return motor.getVelocity().getValueAsDouble() * 360;
     }
 
     public double getVelocity1() {
-        return this.motor.getVelocity().getValueAsDouble();
+        return motor.getVelocity().getValueAsDouble();
     }
 
     public TalonFX getMotor() {
-        return this.motor;
+        return motor;
     }
  
 }

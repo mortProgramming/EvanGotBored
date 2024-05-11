@@ -4,6 +4,8 @@ import com.MORTlib.Test.Hardware.EncoderIntf;
 
 import com.ctre.phoenix6.hardware.CANcoder;
 
+import edu.wpi.first.math.geometry.Rotation2d;
+
 public class CANCoderEncoder implements EncoderIntf {
 
     public int ID;
@@ -13,19 +15,23 @@ public class CANCoderEncoder implements EncoderIntf {
     public CANCoderEncoder(int ID) {
         this.ID = ID;
 
-        this.encoder = new CANcoder(ID);
+        encoder = new CANcoder(ID);
+    }
+
+    public Rotation2d getPosition() {
+        return Rotation2d.fromRotations(encoder.getPosition().getValueAsDouble());
     }
 
     public double getPositionD() {
-        return this.encoder.getPosition().getValueAsDouble() * 360;
+        return encoder.getPosition().getValueAsDouble() * 360;
     }
 
     public double getPositionR() {
-        return this.encoder.getPosition().getValueAsDouble();
+        return encoder.getPosition().getValueAsDouble();
     }
 
     public CANcoder getEncoder() {
-        return this.encoder;
+        return encoder;
     }
  
 }

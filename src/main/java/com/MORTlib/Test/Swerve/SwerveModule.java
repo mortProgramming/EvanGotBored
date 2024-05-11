@@ -54,54 +54,54 @@ public class SwerveModule {
         this.encoderType = encoderType;
         this.moduleType = moduleType;
 
-        this.driveMotor = new Motor(driveMotorType, driveMotorID);
-        this.steerMotor = new PIDMotor(steerMotorType, steerMotorID);
-        this.encoder = new Encoder(encoderType, encoderID);
+        driveMotor = new Motor(driveMotorType, driveMotorID);
+        steerMotor = new PIDMotor(steerMotorType, steerMotorID);
+        encoder = new Encoder(encoderType, encoderID);
 
-        this.maxSpeed = Math.PI / 60;
-        this.maxVoltage = 12;
-        this.offset = 0;
-        this.rotationToMeters = Math.PI;
+        maxSpeed = Math.PI / 60;
+        maxVoltage = 12;
+        offset = 0;
+        rotationToMeters = Math.PI;
 
         switch(driveMotorType) {
             case NEO:
-                this.maxSpeed = this.maxSpeed * NEO.MAX_RPM;
+                maxSpeed = maxSpeed * NEO.MAX_RPM;
                 break;
             case NEO550:
-                this.maxSpeed = this.maxSpeed * NEO550.MAX_RPM;
+                maxSpeed = maxSpeed * NEO550.MAX_RPM;
                 break;
             case FALCON:
-                this.maxSpeed = this.maxSpeed * Falcon500.MAX_RPM;
+                maxSpeed = maxSpeed * Falcon500.MAX_RPM;
                 break;
             case KRAKEN:
-                this.maxSpeed = this.maxSpeed * Krakenx60.MAX_RPM;
+                maxSpeed = maxSpeed * Krakenx60.MAX_RPM;
                 break;
         }
 
         switch (steerMotorType) {
             case NEO:
-                this.steerMotor.setPIDValues(
+                steerMotor.setPIDValues(
                     NEO.SWERVE_STEER_KP, 
                     NEO.SWERVE_STEER_KI, 
                     NEO.SWERVE_STEER_KD
                 );
                 break;
             case NEO550:
-                this.steerMotor.setPIDValues(
+                steerMotor.setPIDValues(
                     NEO550.SWERVE_STEER_KP, 
                     NEO550.SWERVE_STEER_KI, 
                     NEO550.SWERVE_STEER_KD
                 );
                 break;
             case FALCON:
-                this.steerMotor.setPIDValues(
+                steerMotor.setPIDValues(
                     Falcon500.SWERVE_STEER_KP, 
                     Falcon500.SWERVE_STEER_KI, 
                     Falcon500.SWERVE_STEER_KD
                 );
                 break;
             case KRAKEN:
-                this.steerMotor.setPIDValues(
+                steerMotor.setPIDValues(
                     Krakenx60.SWERVE_STEER_KP, 
                     Krakenx60.SWERVE_STEER_KI, 
                     Krakenx60.SWERVE_STEER_KD
@@ -111,39 +111,40 @@ public class SwerveModule {
 
         switch (moduleType) {
             case MK4i:
-                this.maxSpeed = this.maxSpeed * MK4i.WHEEL_DIAMETER * MK4i.DRIVE_REDUCTION;
-                this.rotationToMeters = this.rotationToMeters * MK4i.WHEEL_DIAMETER * MK4i.DRIVE_REDUCTION;
+                maxSpeed = maxSpeed * MK4i.WHEEL_DIAMETER * MK4i.DRIVE_REDUCTION;
+                rotationToMeters = rotationToMeters * MK4i.WHEEL_DIAMETER * MK4i.DRIVE_REDUCTION;
         }
     }
 
     public void setCurrentLimits(double limit) {
-        this.driveMotor.setCurrentLimit(limit);
-        this.steerMotor.setCurrentLimit(limit);
+        driveMotor.setCurrentLimit(limit);
+        steerMotor.setCurrentLimit(limit);
     }
 
     public void setPosition(Rotation2d setpoint) {
-        this.setPositionD(setpoint.getDegrees());
+        setPositionD(setpoint.getDegrees());
     }
 
     public void setPositionD(double setpoint) {
-        this.steerMotor.setPositionD((this.encoder.getPositionD() - offset), setpoint);
+        steerMotor.setPositionD((encoder.getPositionD() - offset), setpoint);
     }
 
     public void setDrivePercent(double percent) {
-        this.driveMotor.setPercent(percent);
+        driveMotor.setPercent(percent);
     }
 
     public void setDriveVoltage(double voltage) {
-        this.driveMotor.setVoltage(voltage);
+        driveMotor.setVoltage(voltage);
     }
 
     public void setDriveSpeedMeters(double speedMeters) {
-        this.driveMotor.setVoltage((speedMeters / this.maxSpeed) * this.maxVoltage);
+        driveMotor.setVoltage((speedMeters / maxSpeed) * maxVoltage);
     }
 
     public void setModuleState(SwerveModuleState state) {
         this.state = state;
 
+        SwerveModuleState.optimize(state, getEncoderPosition());
         setDriveSpeedMeters(state.speedMetersPerSecond);
         setPosition(state.angle);
     }
@@ -158,67 +159,71 @@ public class SwerveModule {
 
 
 
+    public Rotation2d getEncoderPosition() {
+        return Rotation2d.fromDegrees(getEncoderPositionD());
+    }
+
     public double getEncoderPositionD() {
-        return this.encoder.getPositionD() - offset;
+        return encoder.getPositionD() - offset;
     }
 
     public double getDrivePosition() {
-        return this.driveMotor.getPosition();
+        return driveMotor.getPosition();
     }
 
     public double getDriveVelocityD() {
-        return this.driveMotor.getVelocityD();
+        return driveMotor.getVelocityD();
     }
 
     public double getMaxSpeed() {
-        return this.maxSpeed;
+        return maxSpeed;
     }
 
     public double getMaxVoltage() {
-        return this.maxVoltage;
+        return maxVoltage;
     }
 
     public SwerveModuleState getModuleState() {
-        return this.state;
+        return state;
     }
 
     public SwerveModulePosition getPosition() {
         return new SwerveModulePosition(
-            (this.driveMotor.getPosition() * this.rotationToMeters), 
-            Rotation2d.fromDegrees(this.getEncoderPositionD())
+            (driveMotor.getPosition() * rotationToMeters), 
+            Rotation2d.fromDegrees(getEncoderPositionD())
         );
     }
 
 
 
     public MotorIntf getDriveMotor() {
-        return this.driveMotor;
+        return driveMotor;
     }
     
     public MotorIntf getSteerMotor() {
-        return this.steerMotor;
+        return steerMotor;
     }
 
     public EncoderIntf getEncoder() {
-        return this.encoder;
+        return encoder;
     }
 
 
 
     public MotorTypeEnum getDriveMotorType() {
-        return this.driveMotorType;
+        return driveMotorType;
     }
     
     public MotorTypeEnum getSteerMotorType() {
-        return this.steerMotorType;
+        return steerMotorType;
     }
 
     public EncoderTypeEnum getEncoderType() {
-        return this.encoderType;
+        return encoderType;
     }
 
     public ModuleTypeEnum getModuleType() {
-        return this.moduleType;
+        return moduleType;
     }
 
 }

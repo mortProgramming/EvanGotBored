@@ -20,8 +20,8 @@ public class NEOMotor implements MotorIntf {
         this.ID = ID;
         this.brushType = brushType;
 
-        this.motor = new CANSparkMax(ID, brushType);
-        this.controller = this.motor.getPIDController();
+        motor = new CANSparkMax(ID, brushType);
+        controller = motor.getPIDController();
 
         controller.setP(0, 0);
         controller.setI(0, 0);
@@ -29,25 +29,25 @@ public class NEOMotor implements MotorIntf {
     }
 
     public void setCurrentLimit(double limit) {
-        this.motor.setSecondaryCurrentLimit(limit);
+        motor.setSecondaryCurrentLimit(limit);
     }
 
     public void setDirection(boolean direction) {
-        this.motor.setInverted(direction);
+        motor.setInverted(direction);
     }
 
     public void setPIDValues(double kP, double kI, double kD) {
-        this.controller.setP(kP);
-        this.controller.setI(kI);
-        this.controller.setD(kD);
+        controller.setP(kP);
+        controller.setI(kI);
+        controller.setD(kD);
     }
 
     public void setPercent(double percent) {
-        this.motor.set(percent);
+        motor.set(percent);
     }
 
     public void setVoltage(double voltage) {
-        this.motor.setVoltage(voltage);
+        motor.setVoltage(voltage);
     }
 
     public void setPositionD(double positon, double setpoint) {
@@ -57,23 +57,23 @@ public class NEOMotor implements MotorIntf {
 
 
     public double getPositionD() {
-        return this.motor.getEncoder().getPosition() * 360;
+        return motor.getEncoder().getPosition() * 360;
     }
 
     public double getPosition() {
-        return this.motor.getEncoder().getPosition();
+        return motor.getEncoder().getPosition();
     }
 
     public double getVelocityD() {
-        return this.motor.getEncoder().getVelocity() * 360;
+        return motor.getEncoder().getVelocity() * 360;
     }
 
     public double getVelocity1() {
-        return this.motor.getEncoder().getVelocity();
+        return motor.getEncoder().getVelocity();
     }
 
     public CANSparkMax getMotor() {
-        return this.motor;
+        return motor;
     }
  
 }

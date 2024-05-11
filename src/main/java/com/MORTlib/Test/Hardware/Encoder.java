@@ -2,6 +2,8 @@ package com.MORTlib.Test.Hardware;
 
 import com.MORTlib.Test.Hardware.ctre.CANCoderEncoder;
 
+import edu.wpi.first.math.geometry.Rotation2d;
+
 public class Encoder implements EncoderIntf {
 
     public EncoderTypeEnum encoderType;
@@ -15,25 +17,29 @@ public class Encoder implements EncoderIntf {
 
         switch (encoderType) {
             case CANCODER:
-                this.encoder = new CANCoderEncoder(ID);
+                encoder = new CANCoderEncoder(ID);
                 break;
         }
     }
 
+    public Rotation2d getPosition() {
+        return encoder.getPosition();
+    }
+
     public double getPositionD() {
-        return this.encoder.getPositionD();
+        return encoder.getPositionD();
     }
 
     public double getPositionR() {
-        return this.encoder.getPositionR();
+        return encoder.getPositionR();
     }
 
     public EncoderIntf getEncoder() {
-        return this.encoder;
+        return encoder;
     }
 
     public EncoderTypeEnum getMotorType() {
-        return this.encoderType;
+        return encoderType;
     }
 
 }

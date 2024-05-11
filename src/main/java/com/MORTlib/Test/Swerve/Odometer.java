@@ -36,7 +36,7 @@ public class Odometer {
             SwerveDriveKinematics kinematics, Rotation2d rotation, 
             SwerveModulePosition[] modulePositions, Pose2d position
         ) {
-        this.swervePose = new SwerveDrivePoseEstimator(
+        swervePose = new SwerveDrivePoseEstimator(
             kinematics, rotation, 
             modulePositions, position
         );
@@ -47,7 +47,7 @@ public class Odometer {
             SwerveModulePosition[] modulePositions, Pose2d position,
             Matrix<N3, N1> posDeviation, Matrix<N3, N1> camDeviation
         ) {
-        this.swervePose = new SwerveDrivePoseEstimator(
+        swervePose = new SwerveDrivePoseEstimator(
             kinematics, rotation, 
             modulePositions, position, 
             posDeviation, camDeviation
@@ -55,32 +55,32 @@ public class Odometer {
     }
 
     public void resetPosition(Rotation2d angle, SwerveModulePosition[] modulePositions, Pose2d position) {
-        this.swervePose.resetPosition(angle, modulePositions, position);
+        swervePose.resetPosition(angle, modulePositions, position);
     }
 
     public void setMaxCamError(double error) {
-        this.maxCamError = error;
+        maxCamError = error;
     }
 
     public Pose2d getPosition() {
-        return this.swervePose.getEstimatedPosition();
+        return swervePose.getEstimatedPosition();
     }
 
     public void update(Rotation2d angle, SwerveModulePosition[] modulePositions) {
-        this.swervePose.update(angle, modulePositions);
+        swervePose.update(angle, modulePositions);
     }
 
     public void update(
             Rotation2d angle, SwerveModulePosition[] modulePositions, 
             Pose2d camPose, double timeStamp
         ) {
-        this.swervePose.update(angle, modulePositions);
+        swervePose.update(angle, modulePositions);
 
         if (
-                Math.abs(this.getPosition().getX() - camPose.getX()) > this.maxCamError ||
-                Math.abs(this.getPosition().getY() - camPose.getY()) > this.maxCamError
+                Math.abs(getPosition().getX() - camPose.getX()) > maxCamError ||
+                Math.abs(getPosition().getY() - camPose.getY()) > maxCamError
             ) {
-            this.swervePose.addVisionMeasurement(camPose, timeStamp);
+            swervePose.addVisionMeasurement(camPose, timeStamp);
         }
     }
 }
