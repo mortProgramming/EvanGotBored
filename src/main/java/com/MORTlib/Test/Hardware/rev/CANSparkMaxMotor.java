@@ -6,7 +6,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.SparkPIDController;
 
-public class NEO550Motor implements MotorIntf {
+public class CANSparkMaxMotor implements MotorIntf {
 
     public int ID;
     public CANSparkLowLevel.MotorType brushType;
@@ -15,7 +15,7 @@ public class NEO550Motor implements MotorIntf {
     public SparkPIDController controller;
 
     // CANSparkLowLevel.MotorType.kBrushless
-    public NEO550Motor(int ID, CANSparkLowLevel.MotorType brushType) {
+    public CANSparkMaxMotor(int ID, CANSparkLowLevel.MotorType brushType) {
         this.ID = ID;
         this.brushType = brushType;
 

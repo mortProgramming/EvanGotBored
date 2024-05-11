@@ -1,9 +1,7 @@
 package com.MORTlib.Test.Hardware;
 
-import com.MORTlib.Test.Hardware.ctre.Krakenx60Motor;
-import com.MORTlib.Test.Hardware.ctre.Falcon500Motor;
-import com.MORTlib.Test.Hardware.rev.NEOMotor;
-import com.MORTlib.Test.Hardware.rev.NEO550Motor;
+import com.MORTlib.Test.Hardware.ctre.TalonFXMotor;
+import com.MORTlib.Test.Hardware.rev.CANSparkMaxMotor;
 
 import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -28,19 +26,19 @@ public class Motor implements MotorIntf {
 
         switch (motorType) {
             case NEO:
-                motor = new NEO550Motor(ID, brushType);
+                motor = new CANSparkMaxMotor(ID, brushType);
                 break;
 
             case NEO550:
-                motor = new NEOMotor(ID, brushType);
+                motor = new CANSparkMaxMotor(ID, brushType);
                 break;
 
             case FALCON:
-                motor = new Falcon500Motor(ID);
+                motor = new TalonFXMotor(ID);
                 break;
 
             case KRAKEN:
-                motor = new Krakenx60Motor(ID);
+                motor = new TalonFXMotor(ID);
                 break;
         }
     }

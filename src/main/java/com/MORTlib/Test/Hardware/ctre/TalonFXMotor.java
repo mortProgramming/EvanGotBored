@@ -4,14 +4,15 @@ import com.MORTlib.Test.Hardware.MotorIntf;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX;
 
-public class Falcon500Motor implements MotorIntf {
+public class TalonFXMotor implements MotorIntf {
 
     public int ID;
 
     public TalonFX motor;
+
     public TalonFXConfiguration config;
 
-    public Falcon500Motor(int ID) {
+    public TalonFXMotor(int ID) {
         this.ID = ID;
 
         motor = new TalonFX(ID);
