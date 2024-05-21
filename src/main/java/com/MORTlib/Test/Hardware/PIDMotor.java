@@ -7,7 +7,7 @@ public class PIDMotor implements MotorIntf {
     public int motorID;
     public MotorTypeEnum motorType;
 
-    public MotorIntf motor;
+    public Motor motor;
 
     public PIDController controller;
 
