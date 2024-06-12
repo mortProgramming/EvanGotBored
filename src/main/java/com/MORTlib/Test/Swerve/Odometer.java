@@ -22,13 +22,19 @@ public class Odometer {
         );
     }
 
+    public Odometer(SwerveDrive swerveDrive) {
+        this(
+            swerveDrive.getKinematics(), Rotation2d.fromDegrees(0),
+            swerveDrive.getModulePositions(), new Pose2d()
+        );
+    }
+
     public Odometer(
-            SwerveDriveKinematics kinematics, Rotation2d rotation, 
-            SwerveModulePosition[] modulePositions
+            SwerveDrive swerveDrive, Rotation2d rotation
         ) {
         this(
-            kinematics, rotation,
-            modulePositions, new Pose2d()
+            swerveDrive.getKinematics(), rotation,
+            swerveDrive.getModulePositions(), new Pose2d()
         );
     }
 
@@ -39,6 +45,15 @@ public class Odometer {
         swervePose = new SwerveDrivePoseEstimator(
             kinematics, rotation, 
             modulePositions, position
+        );
+    }
+
+    public Odometer(
+            SwerveDrive swerveDrive, Rotation2d rotation, Pose2d position
+        ) {
+        swervePose = new SwerveDrivePoseEstimator(
+            swerveDrive.getKinematics(), rotation, 
+            swerveDrive.getModulePositions(), position
         );
     }
     
@@ -54,8 +69,23 @@ public class Odometer {
         );
     }
 
+    public Odometer(
+            SwerveDrive swerveDrive, Rotation2d rotation, Pose2d position,
+            Matrix<N3, N1> posDeviation, Matrix<N3, N1> camDeviation
+        ) {
+        swervePose = new SwerveDrivePoseEstimator(
+            swerveDrive.getKinematics(), rotation, 
+            swerveDrive.getModulePositions(), position, 
+            posDeviation, camDeviation
+        );
+    }
+
     public void resetPosition(Rotation2d angle, SwerveModulePosition[] modulePositions, Pose2d position) {
         swervePose.resetPosition(angle, modulePositions, position);
+    }
+
+    public void resetPosition(Rotation2d angle, SwerveDrive swerveDrive, Pose2d position) {
+        swervePose.resetPosition(angle, swerveDrive.getModulePositions(), position);
     }
 
     public void setMaxCamError(double error) {
@@ -68,6 +98,20 @@ public class Odometer {
 
     public void update(Rotation2d angle, SwerveModulePosition[] modulePositions) {
         swervePose.update(angle, modulePositions);
+    }
+
+    public void update(Rotation2d angle, SwerveDrive swerveDrive) {
+        swervePose.update(angle, swerveDrive.getModulePositions());
+    }
+
+    public void update(
+            Rotation2d angle, SwerveDrive swerveDrive,
+            Pose2d camPose, double timeStamp
+        ) {
+        update(
+            angle, swerveDrive.getModulePositions(),
+            camPose, timeStamp
+        );
     }
 
     public void update(
