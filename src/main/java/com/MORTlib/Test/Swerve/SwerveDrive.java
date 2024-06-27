@@ -104,7 +104,7 @@ public class SwerveDrive {
     public void setVelocity(ChassisSpeeds velocity) {
         this.velocity = velocity;
 
-        velocity = ChassisSpeeds.discretize(velocity, descritizedValue);
+        // velocity = ChassisSpeeds.discretize(velocity, descritizedValue);
         SwerveModuleState[] states = kinematics.toSwerveModuleStates(velocity);
 		SwerveDriveKinematics.desaturateWheelSpeeds(states, getModule(0).getMaxSpeed());
         setStates(states);
