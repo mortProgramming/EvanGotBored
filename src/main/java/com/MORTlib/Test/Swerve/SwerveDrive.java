@@ -1,7 +1,7 @@
 package com.MORTlib.Test.Swerve;
 
-import com.MORTlib.Test.Hardware.EncoderTypeEnum;
-import com.MORTlib.Test.Hardware.MotorTypeEnum;
+import com.MORTlib.Test.Hardware.Encoder.EncoderTypeEnum;
+import com.MORTlib.Test.Hardware.Motor.MotorTypeEnum;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -104,7 +104,15 @@ public class SwerveDrive {
     public void setVelocity(ChassisSpeeds velocity) {
         this.velocity = velocity;
 
-        // velocity = ChassisSpeeds.discretize(velocity, descritizedValue);
+        SwerveModuleState[] states = kinematics.toSwerveModuleStates(velocity);
+		SwerveDriveKinematics.desaturateWheelSpeeds(states, getModule(0).getMaxSpeed());
+        setStates(states);
+    }
+
+    public void setDescitizedVelocity(ChassisSpeeds velocity) {
+        this.velocity = velocity;
+
+        velocity = ChassisSpeeds.discretize(velocity, descritizedValue);
         SwerveModuleState[] states = kinematics.toSwerveModuleStates(velocity);
 		SwerveDriveKinematics.desaturateWheelSpeeds(states, getModule(0).getMaxSpeed());
         setStates(states);
