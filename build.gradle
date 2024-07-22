@@ -68,6 +68,9 @@ dependencies {
     // REV is implementation because it is not a hard requirement
     implementation "com.revrobotics.frc:REVLib-java:${revlib_version}"
 
+    // NavX stuff?
+    implementation "com.kauailabs.navx.frc:navX-frc-java:${kauailabs_frc_version}"
+
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 
