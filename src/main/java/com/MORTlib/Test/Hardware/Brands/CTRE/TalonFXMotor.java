@@ -1,6 +1,6 @@
-package com.MORTlib.Test.Hardware.ctre;
+package com.MORTlib.Test.Hardware.Brands.CTRE;
 
-import com.MORTlib.Test.Hardware.MotorIntf;
+import com.MORTlib.Test.Hardware.Motor.MotorIntf;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX;
 

@@ -1,4 +1,4 @@
-package com.MORTlib.Test.Hardware.ctre;
+package com.MORTlib.Test.Hardware.Brands.CTRE;
 
 public class CTREUtility {
 

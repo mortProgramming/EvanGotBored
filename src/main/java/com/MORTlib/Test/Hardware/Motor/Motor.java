@@ -1,8 +1,7 @@
-package com.MORTlib.Test.Hardware;
+package com.MORTlib.Test.Hardware.Motor;
 
-import com.MORTlib.Test.Hardware.ctre.TalonFXMotor;
-import com.MORTlib.Test.Hardware.rev.CANSparkMaxMotor;
-
+import com.MORTlib.Test.Hardware.Brands.CTRE.TalonFXMotor;
+import com.MORTlib.Test.Hardware.Brands.REV.CANSparkMaxMotor;
 import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 

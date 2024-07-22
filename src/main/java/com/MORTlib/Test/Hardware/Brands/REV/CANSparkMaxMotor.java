@@ -1,8 +1,7 @@
-package com.MORTlib.Test.Hardware.rev;
-
-import com.MORTlib.Test.Hardware.MotorIntf;
+package com.MORTlib.Test.Hardware.Brands.REV;
 
 import com.revrobotics.CANSparkMax;
+import com.MORTlib.Test.Hardware.Motor.MotorIntf;
 import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.SparkPIDController;
 

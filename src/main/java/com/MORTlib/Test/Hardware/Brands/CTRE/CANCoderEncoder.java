@@ -1,7 +1,6 @@
-package com.MORTlib.Test.Hardware.ctre;
+package com.MORTlib.Test.Hardware.Brands.CTRE;
 
-import com.MORTlib.Test.Hardware.EncoderIntf;
-
+import com.MORTlib.Test.Hardware.Encoder.EncoderIntf;
 import com.ctre.phoenix6.hardware.CANcoder;
 
 import edu.wpi.first.math.geometry.Rotation2d;

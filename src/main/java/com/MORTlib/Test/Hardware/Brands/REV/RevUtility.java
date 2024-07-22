@@ -1,4 +1,4 @@
-package com.MORTlib.Test.Hardware.rev;
+package com.MORTlib.Test.Hardware.Brands.REV;
 
 // import com.revrobotics.CANSparkMax;
 // import com.revrobotics.CANSparkLowLevel;

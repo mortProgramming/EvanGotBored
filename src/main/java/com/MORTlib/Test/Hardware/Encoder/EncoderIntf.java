@@ -1,4 +1,4 @@
-package com.MORTlib.Test.Hardware;
+package com.MORTlib.Test.Hardware.Encoder;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 
