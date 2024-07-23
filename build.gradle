@@ -25,9 +25,12 @@ allprojects {
 
         // CTRE
         maven { url = uri('https://maven.ctr-electronics.com/release/') }
-
+ 
         // REV
         maven { url = uri('https://maven.revrobotics.com/') }
+
+        // kauailabs
+        maven { url = uri('https://dev.studica.com/maven/release/2024/') }
     }
 }
 
@@ -69,7 +72,7 @@ dependencies {
     implementation "com.revrobotics.frc:REVLib-java:${revlib_version}"
 
     // NavX stuff?
-    implementation "com.kauailabs.navx.frc:navX-frc-java:${kauailabs_frc_version}"
+    implementation "com.kauailabs.navx.frc:navx-frc-java:${navx_frc_version}"
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'

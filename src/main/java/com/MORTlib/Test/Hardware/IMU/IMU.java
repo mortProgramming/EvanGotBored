@@ -1,7 +1,7 @@
 package com.MORTlib.Test.Hardware.IMU;
 
 import com.MORTlib.Test.Hardware.Brands.CTRE.Pigeon2IMU;
-// import com.MORTlib.Test.Hardware.Brands.KauaiLabs.NavX2IMU;
+import com.MORTlib.Test.Hardware.Brands.KauaiLabs.NavX2IMU;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
@@ -21,9 +21,9 @@ public class IMU implements IMUIntf {
             case PIGEON2:
                 imu = new Pigeon2IMU(ID);
                 break;
-            // case NAVX2:
-            //     imu = new NavX2IMU(ID);
-            //     break;
+            case NAVX2:
+                imu = new NavX2IMU(ID);
+                break;
         }
     }
 
