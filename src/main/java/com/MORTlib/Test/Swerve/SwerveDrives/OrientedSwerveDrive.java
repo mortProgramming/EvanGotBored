@@ -1,11 +1,14 @@
-package com.MORTlib.Test.Swerve;
+package com.MORTlib.Test.Swerve.SwerveDrives;
 
 import com.MORTlib.Test.Hardware.Encoder.EncoderTypeEnum;
 import com.MORTlib.Test.Hardware.IMU.IMU;
 import com.MORTlib.Test.Hardware.IMU.IMUTypeEnum;
 import com.MORTlib.Test.Hardware.Motor.MotorTypeEnum;
+import com.MORTlib.Test.Swerve.ModuleTypeEnum;
+import com.MORTlib.Test.Swerve.SwerveModule;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -90,6 +93,9 @@ public class OrientedSwerveDrive extends SwerveDrive {
             super(frontLeftModule, frontRightModule, 
             backLeftModule, backRightModule, 
             kinematics);
+
+            this.imu = imu;
+            fieldOrientationOffset = 0;
     }
 
     public void zeroIMU (double angle) {
@@ -100,8 +106,12 @@ public class OrientedSwerveDrive extends SwerveDrive {
         return imu.getAngle() - fieldOrientationOffset;
     }
 
-    public void setVelocity (ChassisSpeeds velocity) {
+    public Rotation3d getRobotRotations () {
+        return imu.getRotation3d();
+    }
+
+    public void setOrientedVelocity (ChassisSpeeds velocity) {
         velocity = ChassisSpeeds.fromFieldRelativeSpeeds(velocity, new Rotation2d(Math.toDegrees(getFieldRelativeAngle())));
-        super.setVelocity(velocity);
+        setVelocity(velocity);
     }
 }

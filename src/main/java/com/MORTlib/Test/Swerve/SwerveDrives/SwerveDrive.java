@@ -1,7 +1,9 @@
-package com.MORTlib.Test.Swerve;
+package com.MORTlib.Test.Swerve.SwerveDrives;
 
 import com.MORTlib.Test.Hardware.Encoder.EncoderTypeEnum;
 import com.MORTlib.Test.Hardware.Motor.MotorTypeEnum;
+import com.MORTlib.Test.Swerve.ModuleTypeEnum;
+import com.MORTlib.Test.Swerve.SwerveModule;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
