@@ -1,6 +1,6 @@
-package frc.robot.library.Hardware.Brands.KauaiLabs;
+package com.MORTlib.Test.Hardware.Brands.KauaiLabs;
 
-import frc.robot.library.Hardware.IMU.IMUIntf;
+import com.MORTlib.Test.Hardware.IMU.IMUIntf;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
