@@ -21,6 +21,8 @@ Do Later:
 15. Simulation Stuff
 17. Command Grouping Stuff
 18. Touchscreen Interface
+19. Python?
+20. 
 
 Doing Now:
 1. 
