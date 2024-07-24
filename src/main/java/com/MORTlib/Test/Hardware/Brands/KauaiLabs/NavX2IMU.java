@@ -1,6 +1,6 @@
-package com.MORTlib.Test.Hardware.Brands.KauaiLabs;
+package frc.robot.library.Hardware.Brands.KauaiLabs;
 
-import com.MORTlib.Test.Hardware.IMU.IMUIntf;
+import frc.robot.library.Hardware.IMU.IMUIntf;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
@@ -15,6 +15,8 @@ public class NavX2IMU implements IMUIntf {
 
     public NavX2IMU(int ID) {
         this.ID = ID;
+
+        imu = new AHRS();
     }
 
     public double getAngle() {
