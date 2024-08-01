@@ -1,6 +1,7 @@
 package com.MORTlib.Test.Hardware.Brands.CTRE;
 
 import com.MORTlib.Test.Hardware.Encoder.EncoderIntf;
+
 import com.ctre.phoenix6.hardware.CANcoder;
 
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -23,14 +24,6 @@ public class CANCoderEncoder implements EncoderIntf {
 
     public Rotation2d getPosition() {
         return Rotation2d.fromRotations(encoder.getPosition().getValueAsDouble());
-    }
-
-    public double getPositionD() {
-        return encoder.getPosition().getValueAsDouble() * 360;
-    }
-
-    public double getPositionR() {
-        return encoder.getPosition().getValueAsDouble();
     }
 
     public CANcoder getEncoder() {

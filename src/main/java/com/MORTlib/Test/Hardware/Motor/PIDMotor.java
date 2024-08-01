@@ -1,6 +1,7 @@
 package com.MORTlib.Test.Hardware.Motor;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.geometry.Rotation2d;
 
 public class PIDMotor extends Motor {
 
@@ -10,7 +11,6 @@ public class PIDMotor extends Motor {
         super(motorType, motorID);
 
         controller = new PIDController(0, 0, 0);
-        controller.enableContinuousInput(-180, 180);
     }
 
     public void setPIDValues(double kP, double kI, double kD) {
@@ -29,7 +29,7 @@ public class PIDMotor extends Motor {
         controller.setTolerance(position, velocity);
     }
 
-    public void setPositionD(double position, double setpoint) {
+    public void setPositionRotations(double position, double setpoint) {
         super.setVoltage(controller.calculate(position, setpoint));
     }
 

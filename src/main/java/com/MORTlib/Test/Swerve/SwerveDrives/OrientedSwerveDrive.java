@@ -115,7 +115,13 @@ public class OrientedSwerveDrive extends SwerveDrive {
     }
 
     public void setOrientedVelocity (ChassisSpeeds velocity) {
-        velocity = ChassisSpeeds.fromFieldRelativeSpeeds(velocity, new Rotation2d(Math.toDegrees(getFieldRelativeAngle())));
+        velocity = ChassisSpeeds.fromFieldRelativeSpeeds(velocity, Rotation2d.fromDegrees(getFieldRelativeAngle()));
         setVelocity(velocity);
+    }
+
+    @Override
+    public void setCanivore(String canivore) {
+        super.setCanivore(canivore);
+        imu.setCanivore(canivore);
     }
 }

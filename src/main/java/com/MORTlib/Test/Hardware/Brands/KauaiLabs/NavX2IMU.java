@@ -1,9 +1,9 @@
 package com.MORTlib.Test.Hardware.Brands.KauaiLabs;
 
-import com.MORTlib.Test.Hardware.IMU.IMUIntf;
-
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
+
+import com.MORTlib.Test.Hardware.IMU.IMUIntf;
 
 import com.kauailabs.navx.frc.AHRS;
 
@@ -17,6 +17,10 @@ public class NavX2IMU implements IMUIntf {
         this.ID = ID;
 
         imu = new AHRS();
+    }
+
+    public void setCanivore (String canivore) {
+        System.out.println("Why are you here?");
     }
 
     public double getAngle() {

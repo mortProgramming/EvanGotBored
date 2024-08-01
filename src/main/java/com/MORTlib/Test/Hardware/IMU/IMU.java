@@ -27,6 +27,10 @@ public class IMU implements IMUIntf {
         }
     }
 
+    public void setCanivore(String canivore) {
+        imu.setCanivore(canivore);
+    }
+
     public double getAngle() {
         return imu.getAngle();
     }
@@ -51,7 +55,7 @@ public class IMU implements IMUIntf {
         return imu;
     }
 
-    public IMUTypeEnum getMotorType() {
+    public IMUTypeEnum getIMUType() {
         return imuType;
     }
 

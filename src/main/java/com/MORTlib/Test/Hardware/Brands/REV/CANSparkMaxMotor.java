@@ -1,9 +1,13 @@
 package com.MORTlib.Test.Hardware.Brands.REV;
 
 import com.revrobotics.CANSparkMax;
+
 import com.MORTlib.Test.Hardware.Motor.MotorIntf;
+
 import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.SparkPIDController;
+
+import edu.wpi.first.math.geometry.Rotation2d;
 
 public class CANSparkMaxMotor implements MotorIntf {
 
@@ -48,8 +52,8 @@ public class CANSparkMaxMotor implements MotorIntf {
         motor.setVoltage(voltage);
     }
 
-    public void setPositionD(double positon, double setpoint) {
-        // do later
+    public void setPositionRotations(double setpoint) {
+        controller.setReference(setpoint, CANSparkMax.ControlType.kSmartMotion);
     }
 
     public void setCanivore(String canivore) {
@@ -58,19 +62,11 @@ public class CANSparkMaxMotor implements MotorIntf {
 
     
 
-    public double getPositionD() {
-        return motor.getEncoder().getPosition() * 360;
-    }
-
-    public double getPosition() {
+    public double getPositionRotations() {
         return motor.getEncoder().getPosition();
     }
 
-    public double getVelocityD() {
-        return motor.getEncoder().getVelocity() * 360;
-    }
-
-    public double getVelocity1() {
+    public double getVelocityRPM() {
         return motor.getEncoder().getVelocity();
     }
 

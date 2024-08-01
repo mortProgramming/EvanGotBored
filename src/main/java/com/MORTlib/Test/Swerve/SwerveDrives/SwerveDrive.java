@@ -5,6 +5,7 @@ import com.MORTlib.Test.Hardware.Motor.MotorTypeEnum;
 import com.MORTlib.Test.Swerve.ModuleTypeEnum;
 import com.MORTlib.Test.Swerve.SwerveModule;
 
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -24,6 +25,12 @@ public class SwerveDrive {
     public SwerveDriveKinematics kinematics;
 
     public double descritizedValue;
+
+    public SlewRateLimiter tangentRateLimiter;
+    public SlewRateLimiter rotationRateLimiter;
+
+    public double tangentRateLimiterLimit;
+    public double rotationRateLimiterLimit;
     
     public SwerveDrive (
             MotorTypeEnum frontLeftDriveMotorType, int frontLeftDriveMotorID, 
@@ -101,6 +108,12 @@ public class SwerveDrive {
             this.kinematics = kinematics;
 
         descritizedValue = 0.02;
+
+        tangentRateLimiterLimit = 1000000;
+        rotationRateLimiterLimit = 1000000;
+
+        tangentRateLimiter = new SlewRateLimiter(tangentRateLimiterLimit);
+        rotationRateLimiter = new SlewRateLimiter(rotationRateLimiterLimit);
     }
 
     public void setVelocity(ChassisSpeeds velocity) {
@@ -111,9 +124,38 @@ public class SwerveDrive {
         setStates(states);
     }
 
+    public void setVelocity (double x, double y, double omega) {
+        this.velocity = new ChassisSpeeds(x, y, omega);
+
+        SwerveModuleState[] states = kinematics.toSwerveModuleStates(velocity);
+		SwerveDriveKinematics.desaturateWheelSpeeds(states, getModule(0).getMaxSpeed());
+        setStates(states);
+    }
+
     public void setDescitizedVelocity(ChassisSpeeds velocity) {
         this.velocity = velocity;
 
+        velocity = ChassisSpeeds.discretize(velocity, descritizedValue);
+        SwerveModuleState[] states = kinematics.toSwerveModuleStates(velocity);
+		SwerveDriveKinematics.desaturateWheelSpeeds(states, getModule(0).getMaxSpeed());
+        setStates(states);
+    }
+
+    public void setLimitedVelocity(ChassisSpeeds velocity) {
+        this.velocity = velocity;
+        
+        double tangentalVelocity = Math.hypot(velocity.vxMetersPerSecond, velocity.vyMetersPerSecond);
+        double directionRadians = Math.atan(velocity.vyMetersPerSecond / velocity.vxMetersPerSecond);
+        if (velocity.vxMetersPerSecond < 0) {
+            directionRadians += Math.PI;
+        }
+        double limitedTangentalVelocity = tangentRateLimiter.calculate(tangentalVelocity);
+
+        velocity = new ChassisSpeeds(
+            limitedTangentalVelocity * Math.cos(directionRadians), 
+            limitedTangentalVelocity * Math.sin(directionRadians), 
+            rotationRateLimiter.calculate(velocity.omegaRadiansPerSecond)
+        );
         velocity = ChassisSpeeds.discretize(velocity, descritizedValue);
         SwerveModuleState[] states = kinematics.toSwerveModuleStates(velocity);
 		SwerveDriveKinematics.desaturateWheelSpeeds(states, getModule(0).getMaxSpeed());
@@ -140,6 +182,14 @@ public class SwerveDrive {
 
     public void setDescritizedValue(double value) {
         descritizedValue = value;
+    }
+
+    public void setRateLimits(double tangentRateLimiterLimit, double rotationRateLimiterLimit) {
+        this.tangentRateLimiterLimit = tangentRateLimiterLimit;
+        this.rotationRateLimiterLimit = rotationRateLimiterLimit;
+
+        tangentRateLimiter = new SlewRateLimiter(tangentRateLimiterLimit);
+        rotationRateLimiter = new SlewRateLimiter(rotationRateLimiterLimit);
     }
 
     public void setOffsets(double[] offsets) {
@@ -188,7 +238,7 @@ public class SwerveDrive {
         };
     }
 
-    public void toCanivore(String canivore) {
+    public void setCanivore(String canivore) {
         frontLeftModule.getDriveMotor().setCanivore(canivore);
         frontRightModule.getDriveMotor().setCanivore(canivore);
         backLeftModule.getDriveMotor().setCanivore(canivore);
@@ -205,7 +255,7 @@ public class SwerveDrive {
         backRightModule.getEncoder().setCanivore(canivore);
     }
 
-    public static void toCanivore(SwerveModule module, String canivore) {
+    public static void setCanivore(SwerveModule module, String canivore) {
         module.getDriveMotor().setCanivore(canivore);
         module.getSteerMotor().setCanivore(canivore);
         module.getEncoder().setCanivore(canivore);

@@ -2,8 +2,11 @@ package com.MORTlib.Test.Hardware.Motor;
 
 import com.MORTlib.Test.Hardware.Brands.CTRE.TalonFXMotor;
 import com.MORTlib.Test.Hardware.Brands.REV.CANSparkMaxMotor;
+
 import com.revrobotics.CANSparkLowLevel;
 import com.revrobotics.CANSparkLowLevel.MotorType;
+
+import edu.wpi.first.math.geometry.Rotation2d;
 
 public class Motor implements MotorIntf {
 
@@ -62,8 +65,8 @@ public class Motor implements MotorIntf {
         motor.setVoltage(voltage);
     }
 
-    public void setPositionD(double position, double setpoint) {
-        motor.setPositionD(position, setpoint);
+    public void setPositionRotations(double setpoint) {
+        motor.setPositionRotations(setpoint);
     }
 
     public void setCanivore(String canivore) {
@@ -72,24 +75,12 @@ public class Motor implements MotorIntf {
 
 
     
-    public double getPositionD() {
-        return motor.getPositionD();
+    public double getPositionRotations() {
+        return motor.getPositionRotations();
     }
 
-    public double getPosition() {
-        return motor.getPosition();
-    }
-
-    public double getVelocityD() {
-        return motor.getVelocityD();
-    }
-
-    public double getVelocity1() {
-        return motor.getVelocity1();
-    }
-
-    public MotorIntf getMotor() {
-        return motor;
+    public double getVelocityRPM() {
+        return motor.getVelocityRPM();
     }
 
     public MotorTypeEnum getMotorType() {

@@ -6,7 +6,7 @@ Do Later:
     a. Basic Arm PID, FF, and Gravity
 4. Wrappers
 5. Java Docs
-6. Slew Rate Limiting
+6.      Slew Rate Limiting
 7. Using In Built Motor Controller PIDs
 8. Loop Time Optimization?
     a. IMU multithreading
@@ -15,6 +15,7 @@ Do Later:
 11. Camera Stuff
     a. Limelight
     b. Photovision
+    c. Filters?
 12. Fly Wheel
 13. Odometry Based Movement
 14. Other logging
@@ -22,11 +23,13 @@ Do Later:
 17. Command Grouping Stuff
 18. Touchscreen Interface
 19. Python?
-20. 
+20. Other Kinematics
+21. 
 
 Doing Now:
-1. 
+1. Odometry
+2. Slew Rate Limiting
+3. 
 
 Done Recently:
-1. Odometry
-2. 
+1. 

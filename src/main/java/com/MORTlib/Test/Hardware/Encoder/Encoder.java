@@ -30,19 +30,11 @@ public class Encoder implements EncoderIntf {
         return encoder.getPosition();
     }
 
-    public double getPositionD() {
-        return encoder.getPositionD();
-    }
-
-    public double getPositionR() {
-        return encoder.getPositionR();
-    }
-
     public EncoderIntf getEncoder() {
         return encoder;
     }
 
-    public EncoderTypeEnum getMotorType() {
+    public EncoderTypeEnum getEncoderType() {
         return encoderType;
     }
 

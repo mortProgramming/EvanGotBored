@@ -8,15 +8,19 @@ import com.MORTlib.Test.Swerve.ModuleTypeEnum;
 import com.MORTlib.Test.Swerve.Odometer;
 import com.MORTlib.Test.Swerve.SwerveModule;
 
+import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 
 public class OdometeredSwerveDrive extends OrientedSwerveDrive {
     
     public Odometer odometer;
+
+    public ProfiledPIDController xController, yController, rotationController;
     
     public OdometeredSwerveDrive (
             MotorTypeEnum frontLeftDriveMotorType, int frontLeftDriveMotorID, 
@@ -97,6 +101,24 @@ public class OdometeredSwerveDrive extends OrientedSwerveDrive {
         odometer = new Odometer(getKinematics(), getModulePositions());
     }
 
+    public void setProfiledPIDValues (
+            double translationalP, double translationalI, double translationalD, double translationalV, double translationalA,
+            double rotationalP, double rotationalI, double rotationalD, double rotationalV, double rotationalA
+        ) {
+        xController = new ProfiledPIDController(translationalP, translationalI, translationalD, new Constraints(translationalV, translationalA));
+        yController = new ProfiledPIDController(translationalP, translationalI, translationalD, new Constraints(translationalV, translationalA));
+        rotationController = new ProfiledPIDController(rotationalP, rotationalI, rotationalD, new Constraints(rotationalV, rotationalA));
+        rotationController.enableContinuousInput(-180, 180);
+    }
+
+    public void moveToPosition (Pose2d position) {
+        setOrientedVelocity(new ChassisSpeeds(
+            xController.calculate(getPosition().getX(), position.getX()),
+            yController.calculate(getPosition().getY(), position.getY()),
+            rotationController.calculate(getFieldRelativeAngle2d().getDegrees(), position.getRotation().getDegrees())
+        ));
+    }
+
     public void resetPosition(Pose2d position) {
         odometer.resetPosition(getFieldRelativeAngle2d(), getModulePositions(), position);
     }
@@ -121,4 +143,6 @@ public class OdometeredSwerveDrive extends OrientedSwerveDrive {
             camPose, timeStamp
         );
     }
+
+
 }

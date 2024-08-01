@@ -1,22 +1,20 @@
 package com.MORTlib.Test.Swerve;
 
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.kinematics.SwerveModulePosition;
-import edu.wpi.first.math.kinematics.SwerveModuleState;
+import static com.MORTlib.Test.Swerve.Constants.*;
 
-import com.MORTlib.Test.Hardware.Motor.Motor;
-import com.MORTlib.Test.Hardware.Motor.MotorIntf;
-import com.MORTlib.Test.Hardware.Motor.MotorTypeEnum;
-import com.MORTlib.Test.Hardware.Motor.PIDMotor;
 import com.MORTlib.Test.Hardware.Brands.CTRE.CTREUtility.Falcon500;
 import com.MORTlib.Test.Hardware.Brands.CTRE.CTREUtility.Krakenx60;
 import com.MORTlib.Test.Hardware.Brands.REV.RevUtility.NEO;
 import com.MORTlib.Test.Hardware.Brands.REV.RevUtility.NEO550;
 import com.MORTlib.Test.Hardware.Encoder.Encoder;
-import com.MORTlib.Test.Hardware.Encoder.EncoderIntf;
 import com.MORTlib.Test.Hardware.Encoder.EncoderTypeEnum;
+import com.MORTlib.Test.Hardware.Motor.Motor;
+import com.MORTlib.Test.Hardware.Motor.MotorTypeEnum;
+import com.MORTlib.Test.Hardware.Motor.PIDMotor;
 
-import static com.MORTlib.Test.Swerve.Constants.*;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
+import edu.wpi.first.math.kinematics.SwerveModuleState;
 
 public class SwerveModule {
 
@@ -126,11 +124,7 @@ public class SwerveModule {
     }
 
     public void setPosition(Rotation2d setpoint) {
-        setPositionD(setpoint.getDegrees());
-    }
-
-    public void setPositionD(double setpoint) {
-        steerMotor.setPositionD((encoder.getPositionD() - offset), setpoint);
+        steerMotor.setPositionRotations(getEncoderPosition().getRotations(), setpoint.getRotations());
     }
 
     public void setDrivePercent(double percent) {
@@ -164,19 +158,15 @@ public class SwerveModule {
 
 
     public Rotation2d getEncoderPosition() {
-        return Rotation2d.fromDegrees(getEncoderPositionD());
+        return Rotation2d.fromDegrees(encoder.getPosition().getDegrees() - offset);
     }
 
-    public double getEncoderPositionD() {
-        return encoder.getPositionD() - offset;
+    public double getDrivePositionRotations() {
+        return driveMotor.getPositionRotations();
     }
 
-    public double getDrivePosition() {
-        return driveMotor.getPosition();
-    }
-
-    public double getDriveVelocityD() {
-        return driveMotor.getVelocityD();
+    public double getDriveVelocityRPM() {
+        return driveMotor.getVelocityRPM();
     }
 
     public double getMaxSpeed() {
@@ -193,8 +183,8 @@ public class SwerveModule {
 
     public SwerveModulePosition getPosition() {
         return new SwerveModulePosition(
-            (driveMotor.getPosition() * rotationToMeters), 
-            Rotation2d.fromDegrees(getEncoderPositionD())
+            (driveMotor.getPositionRotations() * rotationToMeters), 
+            getEncoderPosition()
         );
     }
 

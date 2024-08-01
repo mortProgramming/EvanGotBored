@@ -1,8 +1,11 @@
 package com.MORTlib.Test.Hardware.Brands.CTRE;
 
 import com.MORTlib.Test.Hardware.Motor.MotorIntf;
+
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX;
+
+import edu.wpi.first.math.geometry.Rotation2d;
 
 public class TalonFXMotor implements MotorIntf {
 
@@ -49,8 +52,8 @@ public class TalonFXMotor implements MotorIntf {
         motor.setVoltage(voltage);
     }
 
-    public void setPositionD(double position, double setpoint) {
-        //do
+    public void setPositionRotations(double setpoint) {
+        motor.setPosition(setpoint);
     }
 
     public void setCanivore(String canivore) {
@@ -59,20 +62,12 @@ public class TalonFXMotor implements MotorIntf {
 
 
 
-    public double getPositionD() {
-        return motor.getPosition().getValueAsDouble() * 360;
-    }
-
-    public double getPosition() {
+    public double getPositionRotations() {
         return motor.getPosition().getValueAsDouble();
     }
-
-    public double getVelocityD() {
-        return motor.getVelocity().getValueAsDouble() * 360;
-    }
-
-    public double getVelocity1() {
-        return motor.getVelocity().getValueAsDouble();
+    
+    public double getVelocityRPM() {
+        return motor.getVelocity().getValueAsDouble() * 60;
     }
 
     public TalonFX getMotor() {

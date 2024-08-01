@@ -12,19 +12,13 @@ public interface MotorIntf {
 
     public void setVoltage(double voltage);
 
-    public void setPositionD(double position, double setpoint);
+    public void setPositionRotations(double setpoint);
 
     public void setCanivore(String canivore);
 
-    // degrees
-    public double getPositionD();
 
-    // 1 is a full turn
-    public double getPosition();
 
-    public double getVelocityD();
+    public double getPositionRotations();
 
-    public double getVelocity1();
-
-    public Object getMotor();
+    public double getVelocityRPM();
 }

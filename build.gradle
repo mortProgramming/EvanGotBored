@@ -16,7 +16,7 @@ java {
 
 allprojects {
     group 'com.MORTlib'
-    version '0.2.1'
+    version '0.2.2'
 
     repositories {
         mavenCentral()
@@ -31,6 +31,13 @@ allprojects {
 
         // kauailabs
         maven { url = uri('https://dev.studica.com/maven/release/2024/') }
+
+        // PathPlanner
+        maven { url = uri('https://3015rangerrobotics.github.io/pathplannerlib/repo') }
+
+        // PhotonVisiom
+        maven { url = uri('https://maven.photonvision.org/repository/internal') }
+        maven { url = uri('https://maven.photonvision.org/repository/snapshots') }
     }
 }
 
@@ -59,13 +66,22 @@ dependencies {
     implementation "com.fasterxml.jackson.core:jackson-databind:2.12.4"
     implementation 'edu.wpi.first.thirdparty.frc2024.opencv:opencv-java:4.8.0-2'
 
-    implementation "edu.wpi.first.wpilibj:wpilibj-java:${wpilib_version}"
-    implementation "edu.wpi.first.wpiutil:wpiutil-java:${wpilib_version}"
-    implementation "edu.wpi.first.wpimath:wpimath-java:${wpilib_version}"
-    implementation "edu.wpi.first.wpiunits:wpiunits-java:${wpilib_version}"
+    // implementation "edu.wpi.first.wpilibj:wpilibj-java:${wpilib_version}"
+    // implementation "edu.wpi.first.wpiutil:wpiutil-java:${wpilib_version}"
+    // implementation "edu.wpi.first.wpimath:wpimath-java:${wpilib_version}"
+    // implementation "edu.wpi.first.wpiunits:wpiunits-java:${wpilib_version}"
+
+    // for commands
+    // implementation 'edu.wpi.first.wpilibj2:wpilibj2-java:2024.+'
+    // implementation 'edu.wpi.first.wpilibNewCommands:wpilibNewCommands-java:2024.+'
+    // implementation 'edu.wpi.first.wpilibj:commands:2024.+'
+
+    // implementation "edu.wpi.first.wpilibj2:wpilibj2-java:${wpilib_version}"
+    implementation "edu.wpi.first.wpilibNewCommands:wpilibNewCommands-java:${wpilib_version}"
+    // implementation "edu.wpi.first.wpilibj:commands:${wpilib_version}"
+
 
     // CTRE is implementation because it is not a hard requirement
-    // implementation "com.ctre.phoenix6:api-java:${ctre_phoenix_version}"
     implementation "com.ctre.phoenix6:wpiapi-java:${ctre_phoenix_version}"
 
     // REV is implementation because it is not a hard requirement
@@ -73,6 +89,12 @@ dependencies {
 
     // NavX stuff?
     implementation "com.kauailabs.navx.frc:navx-frc-java:${navx_frc_version}"
+
+    // Path Planner
+    implementation "com.pathplanner.lib:PathplannerLib-java:${pathplanner_version}"
+
+    // PhotonVision
+    implementation "org.photonvision:photonlib-java:${photonvision_version}"
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
