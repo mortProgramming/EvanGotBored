@@ -1,5 +1,6 @@
 package com.MORTlib.hardware.brands.kauailabs;
 
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 
@@ -16,7 +17,7 @@ public class NavX2IMU implements IMUIntf {
     public NavX2IMU(int ID) {
         this.ID = ID;
 
-        imu = new AHRS();
+        imu = new AHRS(SPI.Port.kMXP);
     }
 
     public void setCanivore (String canivore) {

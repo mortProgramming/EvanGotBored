@@ -1,22 +1,22 @@
-package frc.robot.mortlib.Swerve;
+package com.MORTlib.Swerve;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 
-import frc.robot.mortlib.Hardware.Motor.Motor;
-import frc.robot.mortlib.Hardware.Motor.MotorIntf;
-import frc.robot.mortlib.Hardware.Motor.MotorTypeEnum;
-import frc.robot.mortlib.Hardware.Motor.PIDMotor;
-import frc.robot.mortlib.Hardware.Brands.CTRE.CTREUtility.Falcon500;
-import frc.robot.mortlib.Hardware.Brands.CTRE.CTREUtility.Krakenx60;
-import frc.robot.mortlib.Hardware.Brands.REV.RevUtility.NEO;
-import frc.robot.mortlib.Hardware.Brands.REV.RevUtility.NEO550;
-import frc.robot.mortlib.Hardware.Encoder.Encoder;
-import frc.robot.mortlib.Hardware.Encoder.EncoderIntf;
-import frc.robot.mortlib.Hardware.Encoder.EncoderTypeEnum;
+import com.MORTlib.Hardware.Motor.Motor;
+import com.MORTlib.Hardware.Motor.MotorIntf;
+import com.MORTlib.Hardware.Motor.MotorTypeEnum;
+import com.MORTlib.Hardware.Motor.PIDMotor;
+import com.MORTlib.Hardware.Brands.CTRE.CTREUtility.Falcon500;
+import com.MORTlib.Hardware.Brands.CTRE.CTREUtility.Krakenx60;
+import com.MORTlib.Hardware.Brands.REV.RevUtility.NEO;
+import com.MORTlib.Hardware.Brands.REV.RevUtility.NEO550;
+import com.MORTlib.Hardware.Encoder.Encoder;
+import com.MORTlib.Hardware.Encoder.EncoderIntf;
+import com.MORTlib.Hardware.Encoder.EncoderTypeEnum;
 
-import static frc.robot.mortlib.Swerve.Constants.*;
+import static com.MORTlib.Swerve.Constants.*;
 
 public class SwerveModule {
 
