@@ -68,8 +68,11 @@ public class CANSparkMaxMotor implements MotorIntf {
         return motor.getEncoder().getVelocity();
     }
 
+    public double getOutputVoltage() {
+        return motor.getAppliedOutput();
+    }
+
     public CANSparkMax getMotor() {
         return motor;
     }
- 
 }

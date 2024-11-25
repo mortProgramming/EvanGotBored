@@ -16,7 +16,7 @@ java {
 
 allprojects {
     group 'com.MORTlib'
-    version '24.1.1'
+    version '24.1.2'
 
     repositories {
         mavenCentral()

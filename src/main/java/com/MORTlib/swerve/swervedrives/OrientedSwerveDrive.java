@@ -1,7 +1,7 @@
 package com.MORTlib.swerve.swervedrives;
 
 import com.MORTlib.hardware.imu.IMU;
-import com.MORTlib.swerve.ModuleTypeEnum;
+import com.MORTlib.swerve.ModuleConfigEnum;
 import com.MORTlib.swerve.SwerveModule;
 import com.MORTlib.hardware.encoder.EncoderTypeEnum;
 import com.MORTlib.hardware.imu.IMUTypeEnum;
@@ -23,22 +23,22 @@ public class OrientedSwerveDrive extends SwerveDrive {
             MotorTypeEnum frontLeftDriveMotorType, int frontLeftDriveMotorID, 
             MotorTypeEnum frontLeftSteerMotorType, int frontLeftSteerMotorID,
             EncoderTypeEnum frontLeftEncoderType, int frontLeftEncoderID,
-            ModuleTypeEnum frontLeftModuleType,
+            ModuleConfigEnum frontLeftModuleType,
 
             MotorTypeEnum frontRightDriveMotorType, int frontRightDriveMotorID, 
             MotorTypeEnum frontRightSteerMotorType, int frontRightSteerMotorID,
             EncoderTypeEnum frontRightEncoderType, int frontRightEncoderID,
-            ModuleTypeEnum frontRightModuleType,
+            ModuleConfigEnum frontRightModuleType,
 
             MotorTypeEnum backLeftDriveMotorType, int backLeftDriveMotorID, 
             MotorTypeEnum backLeftSteerMotorType, int backLeftSteerMotorID,
             EncoderTypeEnum backLeftEncoderType, int backLeftEncoderID,
-            ModuleTypeEnum backLeftModuleType,
+            ModuleConfigEnum backLeftModuleType,
 
             MotorTypeEnum backRightDriveMotorType, int backRightDriveMotorID, 
             MotorTypeEnum backRightSteerMotorType, int backRightSteerMotorID,
             EncoderTypeEnum backRightEncoderType, int backRightEncoderID,
-            ModuleTypeEnum backRightModuleType,
+            ModuleConfigEnum backRightModuleType,
 
             double robotLength,
             double robotWidth,
@@ -115,7 +115,7 @@ public class OrientedSwerveDrive extends SwerveDrive {
     }
 
     public void setOrientedVelocity (ChassisSpeeds velocity) {
-        velocity = ChassisSpeeds.fromFieldRelativeSpeeds(velocity, Rotation2d.fromDegrees(getFieldRelativeAngle()));
+        velocity = ChassisSpeeds.fromFieldRelativeSpeeds(velocity, getFieldRelativeAngle2d());
         setVelocity(velocity);
     }
 

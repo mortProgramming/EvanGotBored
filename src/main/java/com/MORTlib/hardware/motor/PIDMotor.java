@@ -3,7 +3,6 @@ package com.MORTlib.hardware.motor;
 import edu.wpi.first.math.controller.PIDController;
 
 public class PIDMotor extends Motor {
-
     public PIDController controller;
 
     public PIDMotor(MotorTypeEnum motorType, int motorID) {
