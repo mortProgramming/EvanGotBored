@@ -4,6 +4,15 @@ import com.MORTlib.hardware.motor.MotorIntf;
 
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.InvertedValue;
+
+import com.ctre.phoenix6.hardware.core.*;
+
+import com.ctre.phoenix6.*;
+import com.ctre.phoenix6.signals.*;
+import edu.wpi.first.units.*;
+
+import edu.wpi.first.units.Angle;
 
 public class TalonFXMotor implements MotorIntf {
 
@@ -32,7 +41,9 @@ public class TalonFXMotor implements MotorIntf {
     }
 
     public void setDirectionFlip(boolean direction) {
-        motor.setInverted(direction);
+        config.MotorOutput.Inverted = direction ?
+        InvertedValue.Clockwise_Positive
+        : InvertedValue.CounterClockwise_Positive;
     }
 
     public void setPIDValues(double kP, double kI, double kD) {
@@ -61,7 +72,8 @@ public class TalonFXMotor implements MotorIntf {
 
 
     public double getPositionRotations() {
-        return motor.getPosition().getValueAsDouble();
+        // return motor.getPosition().getValueAsDouble();
+        return motor.getRotorPosition().getPosition();
     }
     
     public double getVelocityRPM() {

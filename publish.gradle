@@ -2,7 +2,7 @@ apply plugin: 'maven-publish'
 
 ext.licenseFile = files("$rootDir/LICENSE.txt")
 
-def pubVersion = '24.1.3'
+def pubVersion = '25.0.1'
 
 def outputsFolder = file("$buildDir/outputs")
 

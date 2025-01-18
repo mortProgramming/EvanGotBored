@@ -6,6 +6,12 @@ import com.ctre.phoenix6.hardware.CANcoder;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 
+import edu.wpi.first.units.*;
+import edu.wpi.first.units.measure.*;
+import static edu.wpi.first.units.Units.*;
+
+import edu.wpi.first.units.Angle;
+
 public class CANCoderEncoder implements EncoderIntf {
 
     public int ID;
@@ -23,7 +29,7 @@ public class CANCoderEncoder implements EncoderIntf {
     }
 
     public Rotation2d getPosition() {
-        return Rotation2d.fromRotations(encoder.getPosition().getValueAsDouble());
+        return Rotation2d.fromRotations(encoder.getPosition);
     }
 
     public double getVelocityRotations() {
