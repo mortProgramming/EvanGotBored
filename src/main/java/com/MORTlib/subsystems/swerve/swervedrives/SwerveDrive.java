@@ -1,9 +1,9 @@
-package com.MORTlib.swerve.swervedrives;
+package com.MORTlib.subsystems.swerve.swervedrives;
 
-import com.MORTlib.swerve.ModuleConfigEnum;
-import com.MORTlib.swerve.SwerveModule;
 import com.MORTlib.hardware.encoder.EncoderTypeEnum;
 import com.MORTlib.hardware.motor.MotorTypeEnum;
+import com.MORTlib.subsystems.swerve.ModuleConfigEnum;
+import com.MORTlib.subsystems.swerve.SwerveModule;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Rotation2d;

@@ -33,7 +33,7 @@ allprojects {
         maven { url = uri('https://dev.studica.com/maven/release/2024/') }
 
         // PathPlanner
-        maven { url = uri('https://3015rangerrobotics.github.io/pathplannerlib/repo') }
+        maven { url = uri('https://3015rangerrobotics.github.io/pathplannerlib/repo/') }
 
         // PhotonVisiom
         maven { url = uri('https://maven.photonvision.org/repository/internal') }

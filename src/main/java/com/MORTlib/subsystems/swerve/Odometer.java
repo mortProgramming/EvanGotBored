@@ -1,6 +1,6 @@
-package com.MORTlib.swerve;
+package com.MORTlib.subsystems.swerve;
 
-import com.MORTlib.swerve.swervedrives.SwerveDrive;
+import com.MORTlib.subsystems.swerve.swervedrives.SwerveDrive;
 
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;

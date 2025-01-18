@@ -1,6 +1,6 @@
-package com.MORTlib.swerve;
+package com.MORTlib.subsystems.swerve;
 
-import static com.MORTlib.swerve.ModuleConfig.*;
+import static com.MORTlib.subsystems.swerve.ModuleConfig.*;
 
 import com.MORTlib.hardware.brands.ctre.CTREUtility.Falcon500;
 import com.MORTlib.hardware.brands.ctre.CTREUtility.Krakenx60;

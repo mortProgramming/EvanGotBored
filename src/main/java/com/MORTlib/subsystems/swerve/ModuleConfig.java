@@ -1,4 +1,4 @@
-package com.MORTlib.swerve;
+package com.MORTlib.subsystems.swerve;
 
 public class ModuleConfig {
 
